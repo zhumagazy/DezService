@@ -1,0 +1,35 @@
+name: Fetch site assets
+
+# Downloads images, Tilda libraries and the favicon listed in assets.txt
+# and commits them, so the site does not depend on Tilda's servers.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - assets.txt
+      - scripts/fetch-assets.sh
+      - .github/workflows/fetch-assets.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download assets
+        id: fetch
+        continue-on-error: true
+        run: scripts/fetch-assets.sh
+      - name: Commit downloaded files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898231+github-actions[bot]@users.noreply.github.com"
+          git add -A images css js favicon.ico 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Nothing new"; exit 0; fi
+          git commit -m "Add downloaded site assets"
+          git push
+      - name: Report missing files
+        if: steps.fetch.outcome == 'failure'
+        run: exit 1
