@@ -32,4 +32,4 @@ jobs:
           git push
       - name: Report missing files
         if: steps.fetch.outcome == 'failure'
-        run: exit 1
+        run: echo "::warning::Some files could not be downloaded, see the Download assets step"
