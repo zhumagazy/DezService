@@ -1,0 +1,6 @@
+# Server-side data: articles, admin password, setup key — never commit
+storage/*
+!storage/.htaccess
+uploads/*
+!uploads/.htaccess
+!uploads/.gitkeep
