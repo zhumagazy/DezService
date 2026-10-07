@@ -14,9 +14,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, 'site')
 FONT_BOLD = '/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf'
 FONT_SEMI = '/usr/share/fonts/opentype/inter/Inter-SemiBold.otf'
-START = '2026-10-07'
-# one article every 2-3 days (alternating), starting on START; future ones go live automatically
-GAPS = [2, 3]
+START = '2026-09-01'
+# evenly from 1 September to 7 October 2026: 10 articles, one every 4 days
+GAPS = [4]
 
 CTA = ('<blockquote><strong>Нужна профессиональная обработка?</strong> Выезжаем по Астане в день обращения, '
        'гарантия 3 месяца по договору. Позвоните <a href="tel:+77019844194">+7 701 984 41 94</a> '
