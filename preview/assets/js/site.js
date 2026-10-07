@@ -7,9 +7,12 @@
   if (burger && nav) {
     burger.addEventListener('click', function () {
       var open = burger.getAttribute('aria-expanded') !== 'true';
+      // start the panel exactly under the header, whatever its current height
+      nav.style.top = Math.round(document.querySelector('.header').getBoundingClientRect().bottom) + 'px';
       burger.setAttribute('aria-expanded', String(open));
       nav.classList.toggle('is-open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
+      // lock page scroll on <html>: on <body> it would turn body into a scroll box and unstick the header
+      document.documentElement.style.overflow = open ? 'hidden' : '';
     });
     nav.addEventListener('click', function (e) {
       if (e.target.closest('a') && burger.getAttribute('aria-expanded') === 'true') burger.click();

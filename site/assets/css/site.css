@@ -71,7 +71,9 @@ p { margin: 0 0 16px; }
 .btn--block { width: 100%; }
 
 /* ---------- header ---------- */
-.header { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, .86); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--line); }
+.header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--line); }
+/* blur lives on a pseudo-element: backdrop-filter on .header itself would trap the fixed mobile menu inside it */
+.header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(255, 255, 255, .86); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); }
 .header__row { display: flex; align-items: center; gap: 16px; min-height: var(--header-h); }
 .logo img { width: 96px; height: auto; }
 .nav { margin-left: auto; }
@@ -100,7 +102,7 @@ p { margin: 0 0 16px; }
   .nav ul { flex-direction: column; }
   .nav a { font-size: 19px; min-height: 52px; width: 100%; }
   .nav__contacts { display: flex; flex-direction: column; gap: 4px; padding: 24px 12px; border-top: 1px solid var(--line); margin-top: 16px; }
-  .nav__phone { font-size: 22px; font-weight: 700; color: var(--text); text-decoration: none; }
+  .nav__phone { font-size: 22px; font-weight: 700; color: var(--text); text-decoration: none; padding: 0 !important; min-height: 0 !important; width: auto !important; }
   .nav__hours { color: var(--text-2); }
 }
 @media (min-width: 1100px) and (max-width: 1239px) { .header__phone { display: none; } }
