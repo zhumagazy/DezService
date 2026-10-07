@@ -13,6 +13,7 @@
       nav.classList.toggle('is-open', open);
       // lock page scroll on <html>: on <body> it would turn body into a scroll box and unstick the header
       document.documentElement.style.overflow = open ? 'hidden' : '';
+      document.documentElement.classList.toggle('menu-open', open);
     });
     nav.addEventListener('click', function (e) {
       if (e.target.closest('a') && burger.getAttribute('aria-expanded') === 'true') burger.click();

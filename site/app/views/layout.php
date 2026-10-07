@@ -5,6 +5,11 @@ $title = $page['title'];
 $canonical = $page['canonical'] ?? null;
 $image = abs_url($page['image'] ?? img('fog'));
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$kk = lang() === 'kk';
+$ruPath = $kk ? (substr($path, 3) ?: '/') : $path;          // the page's Russian address
+$bilingual = $canonical && has_kk($canonical);
+$kkPath = '/kk' . ($ruPath === '/' ? '' : rtrim($ruPath, '/'));
+if ($kk && $canonical) $canonical = '/kk' . ($canonical === '/' ? '' : $canonical);
 $nav = [
     '/uslugi' => 'Услуги',
     '/ceny' => 'Цены',
@@ -33,6 +38,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <?php if (!empty($page['description'])): ?><meta name="description" content="<?= e($page['description']) ?>"><?php endif ?>
 <?php if (!empty($page['noindex'])): ?><meta name="robots" content="noindex"><?php endif ?>
 <?php if ($canonical): ?><link rel="canonical" href="<?= e(abs_url($canonical)) ?>"><?php endif ?>
+<?php if ($bilingual): ?>
+<link rel="alternate" hreflang="ru" href="<?= e(abs_url($ruPath)) ?>">
+<link rel="alternate" hreflang="kk" href="<?= e(abs_url($kkPath)) ?>">
+<link rel="alternate" hreflang="x-default" href="<?= e(abs_url($ruPath)) ?>">
+<?php endif ?>
 <meta property="og:type" content="<?= e($page['og_type'] ?? 'website') ?>">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="<?= e($c['name']) ?>">
@@ -63,6 +73,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="<?= img('logo') ?>" alt="<?= e($c['name']) ?>" width="120" height="74">
     </a>
     <nav class="nav" id="nav" aria-label="Основное меню">
+      <?php if ($bilingual): ?>
+        <div class="lang lang--menu" role="group" aria-label="Язык">
+          <a href="<?= e($ruPath) ?>" hreflang="ru" lang="ru"<?= $kk ? '' : ' aria-current="true"' ?>>Рус</a>
+          <a href="<?= e($kkPath) ?>" hreflang="kk" lang="kk"<?= $kk ? ' aria-current="true"' : '' ?>>Қаз</a>
+        </div>
+      <?php endif ?>
       <ul>
         <?php foreach ($nav as $href => $label):
             $target = $href === '/dlya-biznesa' ? '/uslugi/dlya-biznesa' : $href; ?>
@@ -75,6 +91,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </nav>
     <div class="header__cta">
+      <?php if ($bilingual): ?>
+        <nav class="lang" aria-label="Язык">
+          <a href="<?= e($ruPath) ?>" hreflang="ru" lang="ru"<?= $kk ? '' : ' aria-current="true"' ?>>Рус</a>
+          <a href="<?= e($kkPath) ?>" hreflang="kk" lang="kk"<?= $kk ? ' aria-current="true"' : '' ?>>Қаз</a>
+        </nav>
+      <?php endif ?>
       <div class="header__phone">
         <a href="tel:<?= e($c['phone']) ?>"><?= e($c['phone_human']) ?></a>
         <span><?= e($c['hours']) ?></span>

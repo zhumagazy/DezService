@@ -122,7 +122,7 @@ if ($path === '/admin/edit') {
     $a = $id ? article_get($id) : null;
     if ($id && !$a) redirect('/admin');
     $a = $a ?: ['id' => '', 'title' => '', 'slug' => '', 'h1' => '', 'meta_title' => '', 'meta_description' => '',
-                'excerpt' => '', 'cover' => '', 'body' => '', 'status' => 'draft', 'published_at' => date('Y-m-d H:i'), 'updated_at' => ''];
+                'excerpt' => '', 'summary' => '', 'faq' => [], 'howto' => [], 'cover' => '', 'body' => '', 'status' => 'draft', 'published_at' => date('Y-m-d H:i'), 'updated_at' => ''];
     $errors = [];
     if ($post) {
         csrf_check();
@@ -130,6 +130,9 @@ if ($path === '/admin/edit') {
             $a[$k] = trim((string)($_POST[$k] ?? ''));
         }
         $a['body'] = sanitize_html($_POST['body'] ?? '');
+        $a['summary'] = trim((string)($_POST['summary'] ?? ''));
+        $a['faq'] = parse_faq($_POST['faq'] ?? '');
+        $a['howto'] = parse_lines($_POST['howto'] ?? '');
         $a['status'] = ($_POST['status'] ?? '') === 'published' ? 'published' : 'draft';
         $date = str_replace('T', ' ', (string)($_POST['published_at'] ?? ''));
         $a['published_at'] = preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/', $date) ? $date : date('Y-m-d H:i');

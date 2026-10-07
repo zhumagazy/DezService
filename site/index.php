@@ -9,6 +9,13 @@ $path = rawurldecode(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: 
 // canonical form: no trailing slash except root
 if ($path !== '/' && substr($path, -1) === '/') redirect(rtrim($path, '/'), 301);
 
+// Kazakh version: /kk + the Russian path, only for pages listed in KK_PAGES
+if ($path === '/kk' || strpos($path, '/kk/') === 0) {
+    $path = substr($path, 3) ?: '/';
+    if (!has_kk($path)) not_found();
+    lang('kk');
+}
+
 if ($path === '/admin' || strpos($path, '/admin/') === 0) {
     require __DIR__ . '/app/admin.php';
     exit;
@@ -113,23 +120,27 @@ if ($path === '/') {
 } elseif (preg_match('#^/blog/([a-z0-9-]+)$#', $path, $m) && ($a = article_by_slug($m[1]))) {
     render_page([
         'title' => $a['meta_title'] ?: $a['title'],
-        'description' => $a['meta_description'] ?: excerpt($a, 160),
+        'description' => $a['meta_description'] ?: ($a['summary'] ?: excerpt($a, 160)),
         'canonical' => '/blog/' . $a['slug'],
         'image' => $a['cover'] ?: null,
         'og_type' => 'article',
-        'schema' => [
+        'schema' => array_merge([
             [
                 '@context' => 'https://schema.org', '@type' => 'Article',
                 'headline' => $a['title'], 'description' => excerpt($a, 160),
                 'datePublished' => str_replace(' ', 'T', $a['published_at']) . ':00+05:00',
                 'dateModified' => str_replace(' ', 'T', $a['updated_at']) . ':00+05:00',
                 'image' => $a['cover'] ? abs_url($a['cover']) : abs_url(img('logo')),
-                'author' => ['@type' => 'Organization', 'name' => cfg('name')],
+                'author' => schema_author(),
                 'publisher' => ['@id' => cfg('base_url') . '/#business'],
                 'mainEntityOfPage' => abs_url('/blog/' . $a['slug']),
             ],
             schema_breadcrumbs(['Главная' => '/', 'Статьи' => '/blog', $a['title'] => '/blog/' . $a['slug']]),
-        ],
+        ], !empty($a['faq']) ? [schema_faq($a['faq'])] : [], !empty($a['howto']) ? [[
+            '@context' => 'https://schema.org', '@type' => 'HowTo', 'name' => $a['title'],
+            'description' => $a['summary'] ?: excerpt($a, 160),
+            'step' => array_map(function ($t, $i) { return ['@type' => 'HowToStep', 'position' => $i + 1, 'text' => $t]; }, $a['howto'], array_keys($a['howto'])),
+        ]] : []),
         'body' => view('pages/article', ['a' => $a, 'services' => $services]),
     ]);
 } elseif ($path === '/sitemap.xml') {

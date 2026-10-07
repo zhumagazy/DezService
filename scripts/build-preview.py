@@ -17,7 +17,7 @@ OUT = os.path.join(ROOT, 'preview')
 PREFIX = '/DezService/preview'
 PORT = 8790
 PAGES = ['/', '/uslugi', '/ceny', '/otzyvy', '/o-kompanii', '/kontakty', '/dezsredstva',
-         '/politika-konfidencialnosti', '/blog']
+         '/politika-konfidencialnosti', '/blog', '/kk', '/kk/uslugi', '/kk/ceny', '/kk/kontakty']
 
 
 def fetch(path):
@@ -55,6 +55,7 @@ def main():
         for bp in ['/blog'] + blog_pages:
             articles += re.findall(r'href="(/blog/(?!page/)[a-z0-9-]+)"', fetch(bp))
         pages += blog_pages
+        services += ['/kk' + x for x in services]
         for p in sorted(set(services + articles)):
             pages.append(p)
         for p in pages:

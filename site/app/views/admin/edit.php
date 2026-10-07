@@ -15,10 +15,16 @@
   <div class="a-grid">
     <div class="a-col-main">
       <label>Заголовок статьи<input name="title" id="title" value="<?= e($a['title']) ?>" required maxlength="160"></label>
+      <label>Коротко — прямой ответ в 2–3 предложениях <small>(показывается первым, его чаще всего цитируют поисковики и ИИ)</small>
+        <textarea name="summary" rows="3" maxlength="600"><?= e($a['summary'] ?? '') ?></textarea></label>
       <div class="a-label">Текст статьи</div>
       <div id="editor"><?= $a['body'] ?></div>
       <textarea name="body" id="body" hidden></textarea>
       <p class="a-muted">Используйте «Заголовок 2» и «Заголовок 3» для разделов — это важно для SEO. Картинки вставляются кнопкой с изображением.</p>
+      <label>Частые вопросы <small>(вопрос на первой строке, ответ на следующей, между парами — пустая строка)</small>
+        <textarea name="faq" rows="8" placeholder="Сколько длится обработка?&#10;Квартира обрабатывается за 30–60 минут.&#10;&#10;Нужно ли уходить из дома?&#10;Да, на 2–3 часа."><?= e(faq_to_text($a['faq'] ?? [])) ?></textarea></label>
+      <label>Шаги инструкции <small>(только для статей-инструкций: один шаг на строку — попадут в разметку HowTo)</small>
+        <textarea name="howto" rows="5"><?= e(implode("\n", $a['howto'] ?? [])) ?></textarea></label>
     </div>
 
     <aside class="a-col-side">

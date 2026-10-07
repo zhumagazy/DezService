@@ -17,6 +17,8 @@ return [
     'hours_schema'=> 'Mo-Su 09:00-21:00',
     'since'       => 2001,
     'guarantee'   => '3 месяца',
+    // who signs the articles; empty name = articles are signed by the company
+    'expert'      => ['name' => '', 'role' => '', 'experience' => ''],
     'gis_firm'    => 'https://2gis.kz/astana/firm/70000001020461045',
     'gis_reviews' => 'https://2gis.kz/astana/firm/70000001020461045/tab/reviews',
     'gis_route'   => 'https://2gis.kz/nur_sultan/directions/points/%7C71.412893%2C51.11552%3B9570784895976365?m=71.412769%2C51.114189%2F15.56',

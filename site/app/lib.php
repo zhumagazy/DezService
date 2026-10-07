@@ -69,7 +69,51 @@ function view($template, array $vars = [])
 /** Render a public page inside the main layout. $page keys: title, description, canonical, schema[], body. */
 function render_page(array $page)
 {
-    echo view('layout', ['page' => $page]);
+    $html = view('layout', ['page' => $page]);
+    echo lang() === 'kk' ? to_kazakh($html) : $html;
+}
+
+// ---------------------------------------------------------------- Kazakh version
+
+/** Pages that exist in Kazakh at /kk/... (everything else stays Russian). */
+const KK_PAGES = '#^/(|uslugi|uslugi/[a-z0-9-]+|ceny|kontakty)$#';
+
+function lang($set = null)
+{
+    static $lang = 'ru';
+    if ($set !== null) $lang = $set;
+    return $lang;
+}
+
+function has_kk($path)
+{
+    return (bool)preg_match(KK_PAGES, rtrim($path, '/') === '' ? '/' : rtrim($path, '/'));
+}
+
+/** Translate rendered HTML with the phrase dictionary and point links to the Kazakh pages. */
+function to_kazakh($html)
+{
+    static $dict;
+    if ($dict === null) {
+        $dict = require __DIR__ . '/i18n/kk.php';
+        // prices are printed with non-breaking spaces: add those spellings of every "от N ₸" entry
+        foreach ($dict as $ru => $kk) {
+            if (preg_match('/^от [0-9 ]+ ₸$/u', $ru)) $dict[str_replace(' ', "\u{00A0}", $ru)] = str_replace(' ', "\u{00A0}", $kk);
+        }
+        uksort($dict, function ($a, $b) { return mb_strlen($b) - mb_strlen($a); });
+    }
+    $html = str_replace('<html lang="ru">', '<html lang="kk">', $html);
+    $html = str_replace('content="ru_RU"', 'content="kk_KZ"', $html);
+    $html = strtr($html, $dict);
+    // links to pages that have a Kazakh version go to /kk; the language switch (hreflang="ru") stays Russian
+    return preg_replace_callback('#<a\b[^>]*>#', function ($tag) {
+        if (strpos($tag[0], 'hreflang="ru"') !== false) return $tag[0];
+        return preg_replace_callback('#href="(/[^"\#?]*)([\#?][^"]*)?"#', function ($m) {
+            $path = $m[1] === '/' ? '/' : rtrim($m[1], '/');
+            if (strpos($path, '/kk') === 0 || !has_kk($path)) return $m[0];
+            return 'href="/kk' . ($path === '/' ? '' : $path) . ($m[2] ?? '') . '"';
+        }, $tag[0]);
+    }, $html);
 }
 
 function not_found()
@@ -204,6 +248,40 @@ function slug_taken($slug, $exceptId)
         if ($a['slug'] === $slug && $a['id'] !== $exceptId) return true;
     }
     return false;
+}
+
+/** "Question\nAnswer" blocks separated by an empty line → [[q, a], ...] */
+function parse_faq($text)
+{
+    $out = [];
+    foreach (preg_split('/\R\s*\R/u', trim((string)$text)) as $block) {
+        $lines = preg_split('/\R/u', trim($block));
+        $q = trim(array_shift($lines));
+        $a = trim(implode(' ', array_map('trim', $lines)));
+        if ($q !== '' && $a !== '') $out[] = ['q' => $q, 'a' => $a];
+    }
+    return $out;
+}
+
+function faq_to_text(array $faq)
+{
+    return implode("\n\n", array_map(function ($f) { return $f['q'] . "\n" . $f['a']; }, $faq));
+}
+
+function parse_lines($text)
+{
+    return array_values(array_filter(array_map('trim', preg_split('/\R/u', (string)$text)), 'strlen'));
+}
+
+/** Author node for Article schema: the configured expert, otherwise the company. */
+function schema_author()
+{
+    $x = cfg('expert');
+    if (!empty($x['name'])) {
+        return array_filter(['@type' => 'Person', 'name' => $x['name'], 'jobTitle' => $x['role'],
+            'worksFor' => ['@id' => cfg('base_url') . '/#business']]);
+    }
+    return ['@type' => 'Organization', 'name' => cfg('legal_name'), '@id' => cfg('base_url') . '/#business'];
 }
 
 function reading_minutes($html)

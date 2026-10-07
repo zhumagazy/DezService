@@ -9,7 +9,7 @@
     </ul>
   </div>
 </section>
-<section class="section">
+<section class="section" id="licenziya">
   <div class="container">
     <h2>Лицензия и награды</h2>
     <ul class="certs">
