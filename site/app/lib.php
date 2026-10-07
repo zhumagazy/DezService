@@ -118,12 +118,21 @@ function article_file($id)
     return 'articles/' . preg_replace('/[^a-z0-9]/', '', $id) . '.php';
 }
 
+/** Articles: bundled ones from app/articles (shipped with the site) overridden by admin-edited copies in storage. */
 function articles_all($onlyPublished = true)
 {
-    $list = [];
+    $byId = [];
+    foreach (glob(__DIR__ . '/articles/*.json') ?: [] as $path) {
+        $a = json_decode(file_get_contents($path), true);
+        if ($a) $byId[$a['id']] = $a + ['bundled' => true];
+    }
     foreach (glob(STORAGE . '/articles/*.php') ?: [] as $path) {
         $a = storage_read('articles/' . basename($path));
-        if (!$a) continue;
+        if ($a) $byId[$a['id']] = $a;
+    }
+    $list = [];
+    foreach ($byId as $a) {
+        if (($a['status'] ?? '') === 'deleted') continue;
         if ($onlyPublished && !article_is_live($a)) continue;
         $list[] = $a;
     }
@@ -148,11 +157,15 @@ function article_by_slug($slug)
 
 function article_get($id)
 {
-    return storage_read(article_file($id));
+    foreach (articles_all(false) as $a) {
+        if ($a['id'] === $id) return $a;
+    }
+    return null;
 }
 
 function article_save(array $a)
 {
+    unset($a['bundled']);
     if (empty($a['id'])) $a['id'] = bin2hex(random_bytes(6));
     $a['updated_at'] = date('Y-m-d H:i');
     storage_write(article_file($a['id']), $a);
@@ -161,6 +174,13 @@ function article_save(array $a)
 
 function article_delete($id)
 {
+    $a = article_get($id);
+    if (!$a) return;
+    if (!empty($a['bundled'])) {
+        // bundled articles live in the code, so deletion is remembered as a marker in storage
+        storage_write(article_file($id), ['id' => $id, 'status' => 'deleted', 'published_at' => '', 'updated_at' => date('Y-m-d H:i')]);
+        return;
+    }
     $path = STORAGE . '/' . article_file($id);
     if (is_file($path)) unlink($path);
 }

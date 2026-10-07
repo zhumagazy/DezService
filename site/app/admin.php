@@ -134,7 +134,7 @@ if ($path === '/admin/edit') {
         $date = str_replace('T', ' ', (string)($_POST['published_at'] ?? ''));
         $a['published_at'] = preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/', $date) ? $date : date('Y-m-d H:i');
         $a['slug'] = slugify($a['slug'] ?: $a['title']);
-        if ($a['cover'] !== '' && !preg_match('#^/uploads/[\w/.-]+$#', $a['cover'])) $a['cover'] = '';
+        if ($a['cover'] !== '' && !preg_match('#^/(uploads|assets/img/blog)/[\w/.-]+$#', $a['cover'])) $a['cover'] = '';
 
         if ($a['title'] === '') $errors[] = 'Укажите заголовок.';
         if ($a['slug'] === '') $errors[] = 'Не удалось сформировать адрес страницы — укажите его вручную латиницей.';

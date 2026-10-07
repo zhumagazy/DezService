@@ -95,7 +95,11 @@ p { margin: 0 0 16px; }
 
 @media (max-width: 1099px) {
   .burger { display: block; }
-  .header__phone, .header__cta .btn--wa { display: none; }
+  .header__cta .btn--wa { display: none; }
+  /* mobile: phone and hours fill the space between logo and menu button */
+  .header__phone { text-align: right; }
+  .header__phone a { font-size: 16px; }
+  .header__phone span { font-size: 12px; }
   .header__cta { margin-left: auto; }
   .nav { position: fixed; inset: var(--header-h) 0 0 0; background: #fff; padding: 16px; overflow: auto; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .2s ease, transform .2s ease, visibility 0s .2s; margin: 0; }
   .nav.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .2s ease, transform .2s ease; }
@@ -106,6 +110,7 @@ p { margin: 0 0 16px; }
   .nav__hours { color: var(--text-2); }
 }
 @media (min-width: 1100px) and (max-width: 1239px) { .header__phone { display: none; } }
+@media (max-width: 339px) { .header__phone span { display: none; } }
 
 /* ---------- hero ---------- */
 .hero { background: linear-gradient(180deg, var(--tint-soft) 0%, #fff 100%); overflow: hidden; }
