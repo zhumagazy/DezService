@@ -144,6 +144,8 @@ function articles_all($onlyPublished = true)
 
 function article_is_live(array $a)
 {
+    // static preview build shows scheduled articles too
+    if (getenv('SHOW_SCHEDULED') === '1' && $a['status'] === 'published') return true;
     return $a['status'] === 'published' && $a['published_at'] <= date('Y-m-d H:i');
 }
 

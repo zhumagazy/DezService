@@ -3,6 +3,7 @@
 Usage: python3 scripts/articles_batch_2026_10.py
 Covers are rendered from site photos with a headline overlay (1200x630, WebP).
 """
+import datetime
 import json
 import os
 import textwrap
@@ -13,7 +14,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, 'site')
 FONT_BOLD = '/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf'
 FONT_SEMI = '/usr/share/fonts/opentype/inter/Inter-SemiBold.otf'
-DATE = '2026-10-07'
+START = '2026-10-07'
+# one article every 2-3 days (alternating), starting on START; future ones go live automatically
+GAPS = [2, 3]
 
 CTA = ('<blockquote><strong>Нужна профессиональная обработка?</strong> Выезжаем по Астане в день обращения, '
        'гарантия 3 месяца по договору. Позвоните <a href="tel:+77019844194">+7 701 984 41 94</a> '
@@ -354,10 +357,11 @@ def main():
     img_dir = os.path.join(SITE, 'assets/img/blog')
     os.makedirs(out_dir, exist_ok=True)
     os.makedirs(img_dir, exist_ok=True)
-    n = len(ARTICLES)
+    day = datetime.date.fromisoformat(START)
     for i, a in enumerate(ARTICLES):
         cover(a, os.path.join(img_dir, a['slug'] + '.webp'))
-        minute = (n - i) * 5  # same day; first in the list shows first
+        when = '%s 10:00' % day.isoformat()
+        day += datetime.timedelta(days=GAPS[i % len(GAPS)])
         data = {
             'id': 'b202610' + str(i).zfill(2),
             'title': a['title'],
@@ -369,8 +373,8 @@ def main():
             'cover': '/assets/img/blog/' + a['slug'] + '.webp',
             'body': textwrap.dedent(a['body']).strip(),
             'status': 'published',
-            'published_at': '%s 09:%02d' % (DATE, minute),
-            'updated_at': '%s 09:%02d' % (DATE, minute),
+            'published_at': when,
+            'updated_at': when,
         }
         with open(os.path.join(out_dir, a['slug'] + '.json'), 'w', encoding='utf-8') as fh:
             json.dump(data, fh, ensure_ascii=False, indent=2)

@@ -43,7 +43,8 @@ def rewrite(html):
 
 def main():
     server = subprocess.Popen(['php', '-S', '127.0.0.1:%d' % PORT, '-t', SITE, os.path.join(SITE, 'dev-router.php')],
-                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                              env=dict(os.environ, SHOW_SCHEDULED='1'))
     try:
         time.sleep(1)
         shutil.rmtree(OUT, ignore_errors=True)
