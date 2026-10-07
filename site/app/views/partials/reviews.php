@@ -2,9 +2,11 @@
 /** Reviews: $limit optional, $service optional (prefer reviews about this service). */
 $all = data('reviews');
 $service = $service ?? '';
-if ($service) {
-    usort($all, function ($a, $b) use ($service) { return (int)($b['service'] === $service) - (int)($a['service'] === $service); });
-}
+// matching service first, then newest
+usort($all, function ($a, $b) use ($service) {
+    $m = $service ? (int)($b['service'] === $service) - (int)($a['service'] === $service) : 0;
+    return $m ?: strcmp($b['date'], $a['date']);
+});
 $reviews = !empty($limit) ? array_slice($all, 0, $limit) : $all;
 ?>
 <section class="section section--muted" id="otzyvy">
