@@ -31,3 +31,7 @@
 - Первый вход в `/admin`: ключ установки появляется в `storage/setup-key.php` на сервере.
 - Для хостинга: содержимое `site/` загружается в `httpdocs`, PHP 7.4+, Apache с `.htaccess` (Plesk).
 - Локально: `php -S 127.0.0.1:8000 -t site site/dev-router.php`.
+
+### Предпросмотр
+`python3 scripts/build-preview.py` собирает статическую копию новой версии в `preview/`
+(без админки), она открывается на GitHub Pages: https://zhumagazy.github.io/DezService/preview/
