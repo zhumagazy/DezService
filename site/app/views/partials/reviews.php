@@ -1,20 +1,31 @@
-<?php $reviews = data('reviews'); $limit = $limit ?? 0; if ($limit) $reviews = array_slice($reviews, 0, $limit); ?>
+<?php
+/** Reviews: $limit optional, $service optional (prefer reviews about this service). */
+$all = data('reviews');
+$service = $service ?? '';
+if ($service) {
+    usort($all, function ($a, $b) use ($service) { return (int)($b['service'] === $service) - (int)($a['service'] === $service); });
+}
+$reviews = !empty($limit) ? array_slice($all, 0, $limit) : $all;
+?>
 <section class="section section--muted" id="otzyvy">
   <div class="container">
-    <h2>Отзывы клиентов</h2>
+    <div class="section__head">
+      <h2>Отзывы клиентов</h2>
+      <a class="link" href="<?= e(cfg('gis_reviews')) ?>" target="_blank" rel="noopener">Все отзывы в 2ГИС →</a>
+    </div>
     <?php if ($reviews): ?>
       <div class="reviews">
         <?php foreach ($reviews as $r): ?>
           <figure class="review card">
+            <div class="review__top">
+              <span class="review__avatar" aria-hidden="true"><?= e(mb_substr($r['name'], 0, 1)) ?></span>
+              <span><strong><?= e($r['name']) ?></strong><br><span class="muted"><?= e(ru_date($r['date'])) ?> · <?= e($r['source']) ?></span></span>
+            </div>
             <div class="review__stars" aria-label="Оценка <?= (int)$r['rating'] ?> из 5"><?= str_repeat('★', (int)$r['rating']) ?></div>
             <blockquote><?= nl2br(e($r['text'])) ?></blockquote>
-            <figcaption><strong><?= e($r['name']) ?></strong> · <?= e($r['source'] ?? '2ГИС') ?><?= !empty($r['date']) ? ', ' . e(date('d.m.Y', strtotime($r['date']))) : '' ?></figcaption>
           </figure>
         <?php endforeach ?>
       </div>
     <?php endif ?>
-    <p class="reviews__more">
-      <a class="btn btn--ghost" href="<?= e(cfg('gis_firm')) ?>" target="_blank" rel="noopener">Все отзывы в 2ГИС</a>
-    </p>
   </div>
 </section>

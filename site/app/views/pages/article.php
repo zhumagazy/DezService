@@ -5,7 +5,7 @@
       <?= view('partials/crumbs', ['items' => ['Главная' => '/', 'Статьи' => '/blog', $a['title'] => '/blog/' . $a['slug']]]) ?>
       <h1><?= e($a['h1'] ?: $a['title']) ?></h1>
       <p class="muted">
-        <time datetime="<?= e(substr($a['published_at'], 0, 10)) ?>"><?= e(date('d.m.Y', strtotime($a['published_at']))) ?></time>
+        <time datetime="<?= e(substr($a['published_at'], 0, 10)) ?>"><?= e(ru_date($a['published_at'])) ?></time>
         · <?= reading_minutes($a['body']) ?> мин чтения
       </p>
     </div>

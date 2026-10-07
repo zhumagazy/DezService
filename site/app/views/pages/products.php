@@ -19,3 +19,4 @@
   </div>
 </section>
 <?= view('partials/lead', ['title' => 'Подберём дезсредство под ваш объект']) ?>
+<?= view('partials/reviews', ['limit' => 3, 'service' => 'dezsredstva']) ?>

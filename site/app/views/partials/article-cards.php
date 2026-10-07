@@ -5,7 +5,7 @@
       <span class="card__body">
         <span class="card__title"><?= e($a['title']) ?></span>
         <span class="card__text"><?= e(excerpt($a, 140)) ?></span>
-        <span class="card__meta"><?= e(date('d.m.Y', strtotime($a['published_at']))) ?></span>
+        <span class="card__meta"><?= e(ru_date($a['published_at'])) ?></span>
       </span>
     </a>
   <?php endforeach ?>

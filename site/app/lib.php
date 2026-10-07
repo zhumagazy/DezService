@@ -46,9 +46,16 @@ function wa_link($text = 'Здравствуйте! Хочу узнать сто
     return 'https://wa.me/' . cfg('whatsapp') . '?text=' . rawurlencode($text);
 }
 
+function ru_date($date)
+{
+    $m = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    $t = strtotime($date);
+    return date('j', $t) . ' ' . $m[(int)date('n', $t) - 1] . ' ' . date('Y', $t);
+}
+
 function price_label($price)
 {
-    return $price === null ? 'по запросу' : 'от ' . number_format($price, 0, '', ' ') . ' ₸';
+    return $price === null ? 'по запросу' : 'от ' . number_format($price, 0, '', "\u{00A0}") . "\u{00A0}₸";
 }
 
 function view($template, array $vars = [])

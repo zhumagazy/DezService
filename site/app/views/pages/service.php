@@ -31,16 +31,26 @@
           <?php endforeach ?>
         </tbody>
       </table>
-      <p class="muted">Точная цена зависит от площади и степени заражения. Расчёт бесплатный.</p>
+      <p class="muted">Точная цена зависит от площади и степени заражения. Расчёт бесплатный, гарантия 3 месяца входит в стоимость.</p>
       <a class="btn btn--primary btn--block" href="#zayavka">Узнать точную цену</a>
     </div>
   </div>
 </section>
 
+<?php if (!empty($s['formats'])): ?>
+<section class="section section--muted">
+  <div class="container">
+    <h2>Форматы работы</h2>
+    <ul class="methods">
+      <?php foreach ($s['formats'] as $f): ?><li class="card"><h3><?= e($f['title']) ?></h3><p><?= e($f['text']) ?></p></li><?php endforeach ?>
+    </ul>
+  </div>
+</section>
+<?php endif ?>
 <?= view('partials/advantages') ?>
 <?= view('partials/steps') ?>
 <?= view('partials/lead', ['title' => 'Рассчитаем стоимость: ' . mb_strtolower($s['menu'])]) ?>
-<?= view('partials/reviews', ['limit' => 3]) ?>
+<?= view('partials/reviews', ['limit' => 3, 'service' => $slug]) ?>
 <?= view('partials/faq', ['faq' => $s['faq']]) ?>
 
 <section class="section section--muted">
