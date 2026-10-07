@@ -12,7 +12,7 @@
       <?php if ($pages > 1): ?>
         <nav class="pager" aria-label="Страницы">
           <?php for ($i = 1; $i <= $pages; $i++): ?>
-            <a href="/blog<?= $i > 1 ? '?page=' . $i : '' ?>"<?= $i === $n ? ' aria-current="page"' : '' ?>><?= $i ?></a>
+            <a href="<?= $i > 1 ? '/blog/page/' . $i : '/blog' ?>"<?= $i === $n ? ' aria-current="page"' : '' ?>><?= $i ?></a>
           <?php endfor ?>
         </nav>
       <?php endif ?>

@@ -93,16 +93,21 @@ if ($path === '/') {
         'canonical' => '/politika-konfidencialnosti',
         'body' => view('pages/privacy'),
     ]);
-} elseif ($path === '/blog') {
+} elseif ($path === '/blog' && isset($_GET['page'])) {
+    // old ?page=N links → clean URL
+    $n = max(1, (int)$_GET['page']);
+    redirect($n > 1 ? '/blog/page/' . $n : '/blog', 301);
+} elseif ($path === '/blog' || preg_match('#^/blog/page/([0-9]+)$#', $path, $pm)) {
     $all = articles_all();
     $per = cfg('articles_per_page');
     $pages = max(1, (int)ceil(count($all) / $per));
-    $n = max(1, (int)($_GET['page'] ?? 1));
-    if ($n > $pages) not_found();
+    $n = isset($pm[1]) ? (int)$pm[1] : 1;
+    if (isset($pm[1]) && $n === 1) redirect('/blog', 301);
+    if ($n < 1 || $n > $pages) not_found();
     render_page([
         'title' => 'Полезные статьи о борьбе с вредителями' . ($n > 1 ? " — страница $n" : ''),
         'description' => 'Советы специалистов: как избавиться от клопов, тараканов, грызунов и плесени, как подготовить квартиру к обработке.',
-        'canonical' => '/blog' . ($n > 1 ? '?page=' . $n : ''),
+        'canonical' => $n > 1 ? '/blog/page/' . $n : '/blog',
         'body' => view('pages/blog', ['list' => array_slice($all, ($n - 1) * $per, $per), 'n' => $n, 'pages' => $pages]),
     ]);
 } elseif (preg_match('#^/blog/([a-z0-9-]+)$#', $path, $m) && ($a = article_by_slug($m[1]))) {
@@ -132,7 +137,7 @@ if ($path === '/') {
     echo view('sitemap', ['services' => $services, 'articles' => articles_all()]);
 } elseif ($path === '/robots.txt') {
     header('Content-Type: text/plain; charset=utf-8');
-    echo "User-agent: *\nDisallow: /admin\nDisallow: /storage/\nDisallow: /*?\nAllow: /blog?page=\n\nSitemap: " . abs_url('/sitemap.xml') . "\n";
+    echo "User-agent: *\nDisallow: /admin\nDisallow: /storage/\nDisallow: /*?\n\nSitemap: " . abs_url('/sitemap.xml') . "\n";
 } else {
     not_found();
 }

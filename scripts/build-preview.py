@@ -50,7 +50,11 @@ def main():
         shutil.rmtree(OUT, ignore_errors=True)
         pages = list(PAGES)
         services = re.findall(r'href="(/uslugi/[a-z0-9-]+)"', fetch('/uslugi'))
-        articles = re.findall(r'href="(/blog/[a-z0-9-]+)"', fetch('/blog'))
+        blog_pages = sorted(set(re.findall(r'href="(/blog/page/[0-9]+)"', fetch('/blog'))))
+        articles = []
+        for bp in ['/blog'] + blog_pages:
+            articles += re.findall(r'href="(/blog/(?!page/)[a-z0-9-]+)"', fetch(bp))
+        pages += blog_pages
         for p in sorted(set(services + articles)):
             pages.append(p)
         for p in pages:
