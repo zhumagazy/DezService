@@ -172,6 +172,11 @@ if (strpos($path, '/admin/catalog') === 0) {
                 elseif ($old[$v['sku']] !== $v['price']) $changed++;
                 unset($old[$v['sku']]);
             }
+            // the sheet carries no photos: keep the ones already set, matched by product name
+            $photos = [];
+            foreach ($cat as $g) foreach ($g['items'] as $it) if (!empty($it['image'])) $photos[$it['name']] = $it['image'];
+            foreach ($new as &$g) foreach ($g['items'] as &$it) if (isset($photos[$it['name']])) $it['image'] = $photos[$it['name']];
+            unset($g, $it);
             catalog_save($new);
             $_SESSION['flash'] = sprintf('Прайс загружен. Позиций: %d, категорий: %d. Новых позиций: %d, изменилась цена: %d, убрано: %d.',
                 catalog_count($new), count($new), $added, $changed, count($old));
@@ -240,13 +245,30 @@ if (strpos($path, '/admin/catalog') === 0) {
         'has_prev' => is_array(storage_read('catalog-prev.php'))]);
 }
 
+/** Photo picked for product block $i in the edit form; returns its URL or ''. */
+function catalog_photo_upload($i, array &$errors)
+{
+    $f = $_FILES['photo'] ?? null;
+    if (!$f || !isset($f['error'][$i]) || $f['error'][$i] === UPLOAD_ERR_NO_FILE) return '';
+    $info = $f['error'][$i] === UPLOAD_ERR_OK && $f['size'][$i] <= 8 * 1024 * 1024 ? @getimagesize($f['tmp_name'][$i]) : false;
+    $types = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+    if (!$info || !isset($types[$info['mime']])) {
+        $errors[] = 'Фото не загружено: нужен JPG, PNG или WebP до 8 МБ.';
+        return '';
+    }
+    $dir = UPLOADS . '/catalog';
+    if (!is_dir($dir)) mkdir($dir, 0755, true);
+    $file = optimize_upload($f['tmp_name'][$i], $info, $dir . '/' . bin2hex(random_bytes(6)), $types[$info['mime']]);
+    return '/uploads/catalog/' . basename($file);
+}
+
 /** Rebuild one category from the edit form; rows without article and price are skipped. */
 function catalog_category_from_post(array $g, array $in, array &$errors)
 {
     $g['title'] = trim((string)($in['title'] ?? '')) ?: $g['title'];
     $g['short'] = trim((string)($in['short'] ?? '')) ?: $g['title'];
     $items = [];
-    foreach ((array)($in['items'] ?? []) as $p) {
+    foreach ((array)($in['items'] ?? []) as $i => $p) {
         if (!empty($p['delete'])) continue;
         $name = trim((string)($p['name'] ?? ''));
         $variants = [];
@@ -267,7 +289,11 @@ function catalog_category_from_post(array $g, array $in, array &$errors)
         if (!$variants) {
             $errors[] = 'У средства «' . $name . '» нет ни одной фасовки с ценой.';
         }
-        $items[] = ['slug' => '', 'name' => $name, 'shelf' => trim((string)($p['shelf'] ?? '')),
+        $image = (string)($p['image'] ?? '');
+        if (!preg_match('#^/(uploads|assets/img/catalog)/[\w/.-]+$#', $image) || !empty($p['image_delete'])) $image = '';
+        $up = catalog_photo_upload($i, $errors);
+        if ($up) $image = $up;
+        $items[] = ['slug' => '', 'name' => $name, 'image' => $image, 'shelf' => trim((string)($p['shelf'] ?? '')),
             'composition' => parse_lines((string)($p['composition'] ?? '')), 'variants' => $variants];
     }
     $g['items'] = $items;

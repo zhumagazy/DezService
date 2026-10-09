@@ -220,12 +220,6 @@ p { margin: 0 0 16px; }
 .prices th, .prices td { padding: 12px 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; vertical-align: top; }
 .prices td { text-align: right; font-weight: 700; white-space: nowrap; padding-left: 16px; }
 .price-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
-.products { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-.product { padding: 20px; display: flex; flex-direction: column; }
-.product img { margin: 0 auto 12px; height: 200px; width: auto; object-fit: contain; }
-.product h2 { font-size: 20px; }
-.product p { font-size: 15px; color: var(--text-2); }
-.product .btn { margin-top: auto; }
 .product-teaser { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
 .product-teaser > div { flex: 1 1 320px; }
 .contacts__phone { font-size: 28px; font-weight: 700; }
@@ -345,6 +339,7 @@ html.menu-open .dock { display: none; }
 .catalog__group > h2 { margin-bottom: 16px; }
 .catalog__grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); align-items: start; }
 .sku { padding: 20px; }
+.sku__img { display: block; width: 100%; height: 220px; object-fit: contain; margin: 0 0 16px; background: #fff; }
 .sku h3 { font-size: 20px; margin: 0 0 4px; }
 .sku > .muted { margin: 0 0 8px; font-size: 14px; }
 .sku__comp { margin-bottom: 8px; font-size: 14px; color: var(--text-2); }
@@ -360,7 +355,6 @@ html.menu-open .dock { display: none; }
 .sku__add:hover { background: var(--tint); color: #fff; }
 .sku__add.is-in { background: var(--tint); color: #fff; font-size: 15px; font-weight: 700; }
 .tag { font-style: normal; font-size: 12px; font-weight: 600; color: var(--accent); background: #fff3e6; border-radius: 6px; padding: 1px 6px; white-space: nowrap; }
-.products .product h3 { font-size: 20px; }
 
 .cart { position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; padding: 0 12px calc(8px + env(safe-area-inset-bottom)); pointer-events: none; }
 .cart > * { pointer-events: auto; max-width: 720px; margin: 0 auto; }

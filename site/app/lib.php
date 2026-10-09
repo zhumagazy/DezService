@@ -220,6 +220,7 @@ function schema_catalog()
                 'item' => [
                     '@type' => 'Product', 'name' => $it['name'], 'category' => $g['title'],
                     'url' => abs_url('/dezsredstva#' . $it['slug']),
+                    'image' => !empty($it['image']) ? abs_url($it['image']) : null,
                     'description' => trim($g['title'] . '. ' . $it['shelf']),
                     'offers' => [
                         '@type' => 'AggregateOffer', 'priceCurrency' => 'KZT',
@@ -230,6 +231,7 @@ function schema_catalog()
             ];
         }
     }
+    foreach ($list as &$li) $li['item'] = array_filter($li['item'], function ($v) { return $v !== null; });
     return ['@context' => 'https://schema.org', '@type' => 'ItemList', 'name' => 'Дезинфицирующие средства', 'itemListElement' => $list];
 }
 

@@ -69,12 +69,8 @@
         card.hidden = !shown;
         any = any || !!shown;
       });
-      catalog.querySelectorAll('.product[data-search]').forEach(function (card) {
-        card.hidden = q && card.dataset.search.indexOf(q) < 0;
-        any = any || !card.hidden;
-      });
       catalog.querySelectorAll('.catalog__group').forEach(function (g) {
-        g.hidden = !g.querySelector('.sku:not([hidden]), .product:not([hidden])');
+        g.hidden = !g.querySelector('.sku:not([hidden])');
       });
       catalog.querySelector('.catalog__empty').hidden = any;
     });

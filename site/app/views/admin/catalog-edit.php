@@ -2,7 +2,7 @@
 $items = $g['items'];
 $items[] = ['name' => '', 'shelf' => '', 'composition' => [], 'variants' => [], 'new' => true];  // block for a new product
 ?>
-<form method="post" action="/admin/catalog/edit?cat=<?= e($g['slug']) ?>" class="a-catalog">
+<form method="post" action="/admin/catalog/edit?cat=<?= e($g['slug']) ?>" class="a-catalog" enctype="multipart/form-data">
   <div class="a-head">
     <h1><?= e($g['title']) ?></h1>
     <div class="a-head__actions">
@@ -27,6 +27,14 @@ $items[] = ['name' => '', 'shelf' => '', 'composition' => [], 'variants' => [], 
       <div class="a-row2">
         <label>Название<input name="items[<?= $i ?>][name]" value="<?= e($it['name']) ?>" maxlength="120" placeholder="Например: Алмадез-Ликвид"></label>
         <label>Срок годности<input name="items[<?= $i ?>][shelf]" value="<?= e($it['shelf']) ?>" maxlength="160" placeholder="Срок годности 6 лет, рабочего раствора 8 суток"></label>
+      </div>
+      <div class="a-photo">
+        <?php if (!empty($it['image'])): ?><img src="<?= e($it['image']) ?>" alt=""><?php endif ?>
+        <div>
+          <input type="hidden" name="items[<?= $i ?>][image]" value="<?= e($it['image'] ?? '') ?>">
+          <label>Фото <small>(JPG, PNG или WebP, лучше на белом фоне)</small><input type="file" name="photo[<?= $i ?>]" accept="image/jpeg,image/png,image/webp"></label>
+          <?php if (!empty($it['image'])): ?><label class="a-inline"><input type="checkbox" name="items[<?= $i ?>][image_delete]" value="1"> Убрать фото</label><?php endif ?>
+        </div>
       </div>
       <label>Состав <small>(каждый компонент с новой строки)</small>
         <textarea name="items[<?= $i ?>][composition]" rows="<?= max(2, count($it['composition'])) ?>"><?= e(implode("\n", $it['composition'])) ?></textarea></label>

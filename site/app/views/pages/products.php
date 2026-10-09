@@ -16,7 +16,6 @@
     </label>
     <nav class="catalog-nav" aria-label="Категории">
       <?php foreach ($cat as $g): ?><a href="#<?= e($g['slug']) ?>"><?= e($g['short'] ?? $g['title']) ?></a><?php endforeach ?>
-      <a href="#drugie">Другие средства</a>
     </nav>
   </div>
 </div>
@@ -29,6 +28,7 @@
         <div class="catalog__grid">
           <?php foreach ($g['items'] as $it): ?>
             <article class="card sku" id="<?= e($it['slug']) ?>">
+              <?php if (!empty($it['image'])): ?><img class="sku__img" src="<?= e($it['image']) ?>" alt="<?= e($it['name']) ?>" loading="lazy" width="400" height="200"><?php endif ?>
               <h3><?= e($it['name']) ?></h3>
               <?php if ($it['shelf']): ?><p class="muted"><?= e($it['shelf']) ?></p><?php endif ?>
               <?php if ($it['composition']): ?>
@@ -53,21 +53,6 @@
     <?php endforeach ?>
     <p class="catalog__empty muted" hidden>Ничего не нашлось. Напишите нам в WhatsApp — подберём замену.</p>
 
-    <div class="catalog__group" id="drugie">
-      <h2>Другие средства</h2>
-      <p class="muted">Поставляем по запросу, цену и наличие уточняйте у менеджера.</p>
-      <div class="products">
-        <?php foreach (data('products') as $p): ?>
-          <article class="card product" id="<?= e($p['slug']) ?>" data-search="<?= e(mb_strtolower($p['name'])) ?>">
-            <img src="<?= img($p['image']) ?>" alt="<?= e($p['name']) ?>" loading="lazy" width="240" height="240">
-            <h3><?= e($p['name']) ?></h3>
-            <p><?= e($p['text']) ?></p>
-            <p class="muted">Фасовка: <?= e($p['pack']) ?></p>
-            <a class="btn btn--ghost btn--block" href="<?= e(wa_link('Здравствуйте! Интересует ' . $p['name'] . '. Подскажите цену и наличие.')) ?>" target="_blank" rel="noopener">Узнать цену</a>
-          </article>
-        <?php endforeach ?>
-      </div>
-    </div>
   </div>
 </section>
 
