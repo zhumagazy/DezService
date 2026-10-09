@@ -7,5 +7,6 @@
   </div>
 </section>
 <?= view('partials/advantages') ?>
+<?= view('partials/clients') ?>
 <?= view('partials/trust') ?>
 <?= view('partials/lead') ?>

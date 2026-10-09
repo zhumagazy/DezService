@@ -1,14 +1,4 @@
-<?php /** Clients and certificates strip */ ?>
-<section class="section section--muted">
-  <div class="container">
-    <h2>Нам доверяют</h2>
-    <ul class="logos">
-      <?php foreach (data('clients') as $cl): ?>
-        <li><img src="<?= img($cl['image']) ?>" alt="<?= e($cl['name']) ?>" loading="lazy"></li>
-      <?php endforeach ?>
-    </ul>
-  </div>
-</section>
+<?php /** Licence and awards */ ?>
 <section class="section" id="licenziya">
   <div class="container">
     <h2>Лицензия и награды</h2>

@@ -187,6 +187,8 @@ p { margin: 0 0 16px; }
 .logos li { background: #fff; border-radius: var(--radius-sm); display: grid; place-items: center; padding: 16px; height: 96px; }
 .logos img { max-height: 56px; width: auto; filter: grayscale(1); opacity: .8; transition: filter .2s, opacity .2s; }
 .logos li:hover img { filter: none; opacity: 1; }
+.section--clients { padding-top: 0; }
+.section--clients .logos li { border: 1px solid var(--line); }
 .certs { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 .cert { display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--text-2); font-size: 14px; }
 .cert img { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border-radius: var(--radius-sm); box-shadow: var(--shadow); }

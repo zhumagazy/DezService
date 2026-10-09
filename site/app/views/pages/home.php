@@ -26,6 +26,7 @@
 </section>
 
 <?= view('partials/advantages') ?>
+<?= view('partials/clients', ['class' => 'section section--clients']) ?>
 
 <section class="section section--muted" id="uslugi">
   <div class="container">
