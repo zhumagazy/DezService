@@ -16,7 +16,7 @@ SITE = os.path.join(ROOT, 'site')
 OUT = os.path.join(ROOT, 'preview')
 PREFIX = '/DezService/preview'
 PORT = 8790
-PAGES = ['/', '/uslugi', '/ceny', '/otzyvy', '/o-kompanii', '/kontakty', '/dezsredstva',
+PAGES = ['/', '/uslugi', '/ceny', '/otzyvy', '/o-kompanii', '/kontakty',
          '/politika-konfidencialnosti', '/blog', '/kk', '/kk/uslugi', '/kk/ceny', '/kk/kontakty']
 
 

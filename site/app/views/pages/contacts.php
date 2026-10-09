@@ -18,9 +18,7 @@
       </dl>
       <p><a class="btn btn--ghost" href="<?= e($c['gis_route']) ?>" target="_blank" rel="noopener">Проложить маршрут в 2ГИС</a></p>
     </div>
-    <div class="map" data-lat="<?= e($c['geo']['lat']) ?>" data-lng="<?= e($c['geo']['lng']) ?>" data-title="<?= e($c['name']) ?>">
-      <button type="button" class="map__load">Показать карту</button>
-    </div>
+    <?= view('partials/map') ?>
   </div>
 </section>
 <?= view('partials/lead') ?>

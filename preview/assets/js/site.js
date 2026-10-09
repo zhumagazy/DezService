@@ -33,23 +33,27 @@
     });
   });
 
-  // 2GIS map is loaded only on demand
-  document.querySelectorAll('.map').forEach(function (box) {
-    var btn = box.querySelector('.map__load');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var lat = box.dataset.lat, lng = box.dataset.lng, title = box.dataset.title || '';
-      var html = '<!doctype html><meta charset="utf-8"><style>html,body,#m{margin:0;height:100%}</style><div id="m"></div>' +
-        '<script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"><\/script><script>DG.then(function(){var m=DG.map("m",{center:[' +
-        lat + ',' + lng + '],zoom:16});DG.marker([' + lat + ',' + lng + ']).addTo(m).bindPopup(' + JSON.stringify(title) + ');});<\/script>';
-      var frame = document.createElement('iframe');
-      frame.title = 'Карта проезда';
-      frame.setAttribute('loading', 'lazy');
-      frame.srcdoc = html;
-      box.innerHTML = '';
-      box.appendChild(frame);
-    });
-  });
+  // Map with our office (Yandex Maps widget: works without an API key, unlike the 2GIS JS API).
+  // Loads by itself once it is near the screen.
+  function loadMap(box) {
+    if (box.dataset.loaded) return;
+    box.dataset.loaded = '1';
+    var ll = box.dataset.lng + ',' + box.dataset.lat;
+    var frame = document.createElement('iframe');
+    frame.title = 'Карта: ' + box.dataset.address;
+    frame.src = 'https://yandex.ru/map-widget/v1/?ll=' + encodeURIComponent(ll) + '&z=16&pt=' + encodeURIComponent(ll + ',pm2rdm');
+    frame.setAttribute('allowfullscreen', '');
+    box.appendChild(frame);
+  }
+  var maps = document.querySelectorAll('.map[data-lat]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { loadMap(en.target); io.unobserve(en.target); } });
+    }, { rootMargin: '600px 0px' });
+    maps.forEach(function (m) { io.observe(m); });
+  } else {
+    maps.forEach(loadMap);
+  }
 
   // Conversion goals — same events and counter as on the previous site
   function goal(name) {

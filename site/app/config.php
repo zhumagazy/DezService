@@ -9,14 +9,13 @@ return [
     'phone'       => '+77019844194',
     'phone_human' => '+7 701 984 41 94',
     'whatsapp'    => '77019844194',
-    'email'       => 'kazakhstanmeddez@kazmeddez.com',
+    'email'       => 'meddez@kazmeddez.com',
     'address'     => 'пр. Кабанбай батыра 46, ЖК «Времена года», блок «Зима 3», офис 2',
     'street'      => 'пр. Кабанбай батыра, 46',
     'geo'         => ['lat' => 51.115748, 'lng' => 71.412892],
     'hours'       => 'Пн–Вс: 09:00–21:00',
     'hours_schema'=> 'Mo-Su 09:00-21:00',
     'since'       => 2001,
-    'guarantee'   => '3 месяца',
     // who signs the articles; empty name = articles are signed by the company
     'expert'      => ['name' => '', 'role' => '', 'experience' => ''],
     'gis_firm'    => 'https://2gis.kz/astana/firm/70000001020461045',
@@ -30,4 +29,6 @@ return [
     'metrika'     => 103897465,
     'metrika_goals' => 85801511,    // счётчик для целей — как на текущем сайте, не менять без контекстолога
     'articles_per_page' => 9,
+    // disinfectants catalogue (/dezsredstva): archived until the product line is approved; true = show again
+    'products_page' => false,
 ];

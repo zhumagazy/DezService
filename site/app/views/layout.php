@@ -126,7 +126,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <?php foreach (data('services') as $slug => $s): ?>
           <li><a href="/uslugi/<?= $slug ?>"><?= e($s['menu']) ?></a></li>
         <?php endforeach ?>
-        <li><a href="/dezsredstva">Дезсредства</a></li>
+        <?php if (cfg('products_page')): ?><li><a href="/dezsredstva">Дезсредства</a></li><?php endif ?>
       </ul>
     </div>
     <div>

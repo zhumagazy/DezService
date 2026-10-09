@@ -86,6 +86,8 @@ if ($path === '/') {
         'schema' => [schema_business()],
         'body' => view('pages/contacts'),
     ]);
+} elseif ($path === '/dezsredstva' && !cfg('products_page')) {
+    redirect('/', 302);   // archived for now, temporary redirect keeps the address free for later
 } elseif ($path === '/dezsredstva') {
     render_page([
         'title' => 'Дезинфицирующие средства оптом и в розницу в Астане',

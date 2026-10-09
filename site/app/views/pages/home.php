@@ -3,8 +3,8 @@
   <div class="container hero__grid">
     <div class="hero__text">
       <p class="eyebrow">Санитарная служба Астаны · с <?= (int)$c['since'] ?> года</p>
-      <h1>Уничтожим клопов, тараканов и грызунов с гарантией 3 месяца</h1>
-      <p class="hero__lead">Выезд в день обращения. Безопасные для детей и животных препараты. Гарантия в договоре: если вредители вернутся за 3 месяца — повторная обработка бесплатно.</p>
+      <h1>Уничтожим клопов, тараканов и грызунов с гарантией!</h1>
+      <p class="hero__lead">Выезд в день обращения. Безопасные для детей и животных препараты. Гарантия в договоре: если вредители вернутся в гарантийный срок — повторная обработка бесплатно.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="#zayavka">Рассчитать стоимость</a>
         <a class="btn btn--wa" href="<?= e(wa_link()) ?>" target="_blank" rel="noopener">Написать в WhatsApp</a>
@@ -12,7 +12,7 @@
       <ul class="hero__facts">
         <li><strong><?= $years ?> лет</strong><span>на рынке</span></li>
         <li><strong>от 9&nbsp;000&nbsp;₸</strong><span>обработка квартиры</span></li>
-        <li><strong>3 месяца</strong><span>гарантия по договору</span></li>
+        <li><strong>Гарантия</strong><span>по договору</span></li>
       </ul>
     </div>
     <div class="hero__media">
@@ -56,7 +56,7 @@
           <?php endforeach ?>
         </tbody>
       </table>
-      <p class="muted">Муравьи, блохи, грызуны, дезинфекция квартиры — от 9 000 ₸. Частные дома и предприятия считаем индивидуально. Гарантия 3 месяца входит в стоимость.</p>
+      <p class="muted">Муравьи, блохи, грызуны, дезинфекция квартиры — от 9 000 ₸. Частные дома и предприятия считаем индивидуально. Гарантия входит в стоимость.</p>
       <a class="btn btn--primary" href="#zayavka">Рассчитать точную стоимость</a>
     </div>
   </div>
@@ -105,7 +105,9 @@
 <?php endif ?>
 
 <?= view('partials/faq', ['faq' => data('faq')]) ?>
+<?= view('partials/find-us') ?>
 
+<?php if (cfg('products_page')): ?>
 <section class="section section--muted">
   <div class="container product-teaser">
     <img src="<?= img('generator') ?>" alt="" loading="lazy" width="220" height="220">
@@ -116,3 +118,4 @@
     </div>
   </div>
 </section>
+<?php endif ?>
