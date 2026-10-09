@@ -58,6 +58,43 @@ function price_label($price)
     return $price === null ? 'по запросу' : 'от ' . number_format($price, 0, '', "\u{00A0}") . "\u{00A0}₸";
 }
 
+function money($n)
+{
+    return number_format((int)$n, 0, '', "\u{00A0}") . "\u{00A0}₸";
+}
+
+/** Price list of disinfectants, built from the supplier sheet by scripts/import_catalog.py. */
+function catalog()
+{
+    static $c;
+    if ($c === null) $c = json_decode((string)@file_get_contents(__DIR__ . '/catalog.json'), true) ?: [];
+    return $c;
+}
+
+function schema_catalog()
+{
+    $list = [];
+    foreach (catalog() as $g) {
+        foreach ($g['items'] as $it) {
+            $prices = array_column($it['variants'], 'price');
+            $list[] = [
+                '@type' => 'ListItem', 'position' => count($list) + 1,
+                'item' => [
+                    '@type' => 'Product', 'name' => $it['name'], 'category' => $g['title'],
+                    'url' => abs_url('/dezsredstva#' . $it['slug']),
+                    'description' => trim($g['title'] . '. ' . $it['shelf']),
+                    'offers' => [
+                        '@type' => 'AggregateOffer', 'priceCurrency' => 'KZT',
+                        'lowPrice' => min($prices), 'highPrice' => max($prices), 'offerCount' => count($prices),
+                        'seller' => ['@id' => cfg('base_url') . '/#business'],
+                    ],
+                ],
+            ];
+        }
+    }
+    return ['@context' => 'https://schema.org', '@type' => 'ItemList', 'name' => 'Дезинфицирующие средства', 'itemListElement' => $list];
+}
+
 function view($template, array $vars = [])
 {
     extract($vars, EXTR_SKIP);

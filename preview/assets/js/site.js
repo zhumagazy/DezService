@@ -55,6 +55,93 @@
     maps.forEach(loadMap);
   }
 
+  // Disinfectants catalog: search and an order list sent as one WhatsApp message
+  var catalog = document.querySelector('.catalog[data-wa]');
+  if (catalog) {
+    var rows = catalog.querySelectorAll('.sku__variants li');
+    var search = document.querySelector('[data-catalog-search]');
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      var any = false;
+      rows.forEach(function (li) { li.hidden = q && li.dataset.search.indexOf(q) < 0; });
+      catalog.querySelectorAll('.sku').forEach(function (card) {
+        var shown = card.querySelector('.sku__variants li:not([hidden])');
+        card.hidden = !shown;
+        any = any || !!shown;
+      });
+      catalog.querySelectorAll('.product[data-search]').forEach(function (card) {
+        card.hidden = q && card.dataset.search.indexOf(q) < 0;
+        any = any || !card.hidden;
+      });
+      catalog.querySelectorAll('.catalog__group').forEach(function (g) {
+        g.hidden = !g.querySelector('.sku:not([hidden]), .product:not([hidden])');
+      });
+      catalog.querySelector('.catalog__empty').hidden = any;
+    });
+
+    var cartEl = document.querySelector('.cart');
+    var panel = document.getElementById('cart-panel');
+    var KEY = 'dez-cart';
+    var cart = {};
+    try { cart = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (err) {}
+    var bySku = {};
+    rows.forEach(function (li) { bySku[li.dataset.sku] = li; });
+    Object.keys(cart).forEach(function (s) { if (!bySku[s]) delete cart[s]; });
+    var fmt = function (n) { return n.toLocaleString('ru-RU').replace(/\s/g, ' ') + ' ₸'; };
+
+    function render() {
+      var skus = Object.keys(cart), count = 0, total = 0, html = '';
+      skus.forEach(function (s) {
+        var li = bySku[s], q = cart[s], sum = q * +li.dataset.price;
+        count += q; total += sum;
+        html += '<li><span>' + li.dataset.name.replace(/</g, '&lt;') + '</span>' +
+          '<span class="cart__qty"><button type="button" data-dec="' + s + '" aria-label="Меньше">−</button><span>' + q +
+          '</span><button type="button" data-inc="' + s + '" aria-label="Больше">+</button></span>' +
+          '<span class="cart__line"><span>арт. ' + s + '</span><span>' + fmt(sum) + '</span></span></li>';
+      });
+      rows.forEach(function (li) {
+        var a = li.querySelector('.sku__add'), q = cart[li.dataset.sku];
+        a.classList.toggle('is-in', !!q);
+        a.textContent = q ? '×' + q : '+';
+      });
+      cartEl.querySelector('.cart__list').innerHTML = html;
+      cartEl.querySelector('[data-cart-count]').textContent = 'В заказе: ' + count + ' шт.';
+      cartEl.querySelector('[data-cart-total]').textContent = fmt(total);
+      cartEl.hidden = !skus.length;
+      document.documentElement.classList.toggle('has-cart', !!skus.length);
+      if (!skus.length) toggle(false);
+      try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (err) {}
+    }
+    function toggle(open) {
+      panel.hidden = !open;
+      cartEl.querySelector('.cart__sum').setAttribute('aria-expanded', String(open));
+    }
+    catalog.addEventListener('click', function (e) {
+      var a = e.target.closest('.sku__add');
+      if (!a) return;
+      e.preventDefault();  // without JS the link opens WhatsApp for this one item
+      var s = a.closest('li').dataset.sku;
+      cart[s] = (cart[s] || 0) + 1;
+      render();
+    });
+    cartEl.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.closest('[data-cart-toggle]')) toggle(panel.hidden);
+      if (t.dataset.inc) { cart[t.dataset.inc]++; render(); }
+      if (t.dataset.dec) { if (--cart[t.dataset.dec] < 1) delete cart[t.dataset.dec]; render(); }
+      if (t.closest('[data-cart-send]')) {
+        var lines = Object.keys(cart).map(function (s) {
+          return '• ' + bySku[s].dataset.name + ' (арт. ' + s + ') — ' + cart[s] + ' шт.';
+        });
+        var total = Object.keys(cart).reduce(function (n, s) { return n + cart[s] * +bySku[s].dataset.price; }, 0);
+        var text = 'Здравствуйте! Хочу заказать дезсредства:\n' + lines.join('\n') + '\nИтого по прайсу: ' + fmt(total).replace(/ /g, ' ');
+        goal('whatsapp-click');
+        window.open('https://wa.me/' + catalog.dataset.wa + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      }
+    });
+    render();
+  }
+
   // Conversion goals — same events and counter as on the previous site
   function goal(name) {
     try { if (window.fbq) window.fbq('track', 'Lead'); } catch (err) {}

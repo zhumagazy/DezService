@@ -90,9 +90,10 @@ if ($path === '/') {
     redirect('/', 302);   // archived for now, temporary redirect keeps the address free for later
 } elseif ($path === '/dezsredstva') {
     render_page([
-        'title' => 'Дезинфицирующие средства оптом и в розницу в Астане',
-        'description' => 'Аламинол, Акваминол, Бианол, Макси-Дез и другие дезсредства для медицинских, детских и пищевых учреждений. Консультация по подбору.',
+        'title' => 'Дезинфицирующие средства в Астане — цены, каталог | ' . cfg('name'),
+        'description' => 'Антисептики Алмадез и ЗдравДез, концентраты, средства для стерилизации, хлорные таблетки, дезинфицирующее мыло и салфетки. Цены с НДС, заказ в WhatsApp.',
         'canonical' => '/dezsredstva',
+        'schema' => [schema_catalog(), schema_breadcrumbs(['Главная' => '/', 'Дезсредства' => '/dezsredstva'])],
         'body' => view('pages/products'),
     ]);
 } elseif ($path === '/politika-konfidencialnosti') {

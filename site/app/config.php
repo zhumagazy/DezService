@@ -30,5 +30,5 @@ return [
     'metrika_goals' => 85801511,    // счётчик для целей — как на текущем сайте, не менять без контекстолога
     'articles_per_page' => 9,
     // disinfectants catalogue (/dezsredstva): archived until the product line is approved; true = show again
-    'products_page' => false,
+    'products_page' => true,
 ];
