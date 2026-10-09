@@ -39,7 +39,7 @@
               <?php endif ?>
               <ul class="sku__variants">
                 <?php foreach ($it['variants'] as $v): ?>
-                  <li data-sku="<?= e($v['sku']) ?>" data-name="<?= e($it['name'] . ', ' . ($v['size'] ?: $v['unit'])) ?>" data-price="<?= (int)$v['price'] ?>" data-search="<?= e(mb_strtolower($it['name'] . ' ' . $v['title'] . ' ' . $v['sku'])) ?>">
+                  <li data-sku="<?= e($v['sku']) ?>" data-name="<?= e($it['name'] . ', ' . ($v['size'] ?: $v['unit'])) ?>" data-price="<?= (int)$v['price'] ?>"<?php if (!empty($v['image'])): ?> data-img="<?= e($v['image']) ?>"<?php endif ?> data-search="<?= e(mb_strtolower($it['name'] . ' ' . $v['title'] . ' ' . $v['sku'])) ?>">
                     <span class="sku__size"><?= e($v['size'] ?: $v['unit']) ?><?php if ($v['to_order']): ?> <em class="tag">под заказ</em><?php endif ?><small><?= e($v['sku']) ?></small></span>
                     <b class="sku__price"><?= money($v['price']) ?></b>
                     <a class="sku__add" href="<?= e(wa_link('Здравствуйте! Хочу заказать: ' . $it['name'] . ', ' . $v['size'] . ' (арт. ' . $v['sku'] . ').')) ?>" target="_blank" rel="noopener" aria-label="Добавить в заказ: <?= e($v['title']) ?>">+</a>

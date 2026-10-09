@@ -174,8 +174,17 @@ if (strpos($path, '/admin/catalog') === 0) {
             }
             // the sheet carries no photos: keep the ones already set, matched by product name
             $photos = [];
-            foreach ($cat as $g) foreach ($g['items'] as $it) if (!empty($it['image'])) $photos[$it['name']] = $it['image'];
-            foreach ($new as &$g) foreach ($g['items'] as &$it) if (isset($photos[$it['name']])) $it['image'] = $photos[$it['name']];
+            $skuPhotos = [];
+            foreach ($cat as $g) foreach ($g['items'] as $it) {
+                if (!empty($it['image'])) $photos[$it['name']] = $it['image'];
+                foreach ($it['variants'] as $v) if (!empty($v['image'])) $skuPhotos[$v['sku']] = $v['image'];
+            }
+            foreach ($new as &$g) foreach ($g['items'] as &$it) {
+                foreach ($it['variants'] as &$v) if (isset($skuPhotos[$v['sku']])) $v['image'] = $skuPhotos[$v['sku']];
+                unset($v);
+                if (isset($photos[$it['name']])) $it['image'] = $photos[$it['name']];
+                else foreach ($it['variants'] as $v) if (!empty($v['image'])) { $it['image'] = $v['image']; break; }
+            }
             unset($g, $it);
             catalog_save($new);
             $_SESSION['flash'] = sprintf('Прайс загружен. Позиций: %d, категорий: %d. Новых позиций: %d, изменилась цена: %d, убрано: %d.',
@@ -280,7 +289,9 @@ function catalog_category_from_post(array $g, array $in, array &$errors)
             if ($price === '' || !preg_match('/^\d[\d\s]*$/u', str_replace("\u{00A0}", ' ', $price))) {
                 $errors[] = 'Укажите цену цифрами: ' . ($name ?: 'новое средство') . ($size !== '' ? ', ' . $size : '') . '.';
             }
-            $variants[] = ['sku' => $sku, 'size' => $size, 'unit' => trim((string)($v['unit'] ?? '')) ?: 'шт',
+            $vimg = (string)($v['image'] ?? '');
+            if (!preg_match('#^/(uploads|assets/img/catalog)/[\w/.-]+$#', $vimg)) $vimg = '';
+            $variants[] = ['sku' => $sku, 'size' => $size, 'image' => $vimg, 'unit' => trim((string)($v['unit'] ?? '')) ?: 'шт',
                 'price' => (int)preg_replace('/\D/', '', $price), 'to_order' => !empty($v['to_order']),
                 'title' => $name . ($size !== '' ? ', ' . $size : '')];
         }
@@ -293,6 +304,9 @@ function catalog_category_from_post(array $g, array $in, array &$errors)
         if (!preg_match('#^/(uploads|assets/img/catalog)/[\w/.-]+$#', $image) || !empty($p['image_delete'])) $image = '';
         $up = catalog_photo_upload($i, $errors);
         if ($up) $image = $up;
+        if ($image === '' && empty($p['image_delete'])) {
+            foreach ($variants as $vv) if ($vv['image'] !== '') { $image = $vv['image']; break; }
+        }
         $items[] = ['slug' => '', 'name' => $name, 'image' => $image, 'shelf' => trim((string)($p['shelf'] ?? '')),
             'composition' => parse_lines((string)($p['composition'] ?? '')), 'variants' => $variants];
     }

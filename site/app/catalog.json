@@ -21,7 +21,8 @@
                         "unit": "шт",
                         "price": 4724,
                         "to_order": false,
-                        "title": "Алмадез-Ликвид, 1л. (антисептик, крышка)"
+                        "title": "Алмадез-Ликвид, 1л. (антисептик, крышка)",
+                        "image": "/assets/img/catalog/all-530.webp"
                     },
                     {
                         "sku": "АЛЛ-531",
@@ -29,7 +30,8 @@
                         "unit": "шт",
                         "price": 4945,
                         "to_order": false,
-                        "title": "Алмадез-Ликвид, 1л. (антисептик, насос-дозатор)"
+                        "title": "Алмадез-Ликвид, 1л. (антисептик, насос-дозатор)",
+                        "image": "/assets/img/catalog/all-531.webp"
                     },
                     {
                         "sku": "АЛЛ-532",
@@ -37,7 +39,8 @@
                         "unit": "шт",
                         "price": 21625,
                         "to_order": false,
-                        "title": "Алмадез-Ликвид, 5л. (евро, антисептик)"
+                        "title": "Алмадез-Ликвид, 5л. (евро, антисептик)",
+                        "image": "/assets/img/catalog/all-532.webp"
                     },
                     {
                         "sku": "АЛЛ-535",
@@ -45,9 +48,11 @@
                         "unit": "шт",
                         "price": 4355,
                         "to_order": false,
-                        "title": "Алмадез-Ликвид, 750мл. (триггер, антисептик)"
+                        "title": "Алмадез-Ликвид, 750мл. (триггер, антисептик)",
+                        "image": "/assets/img/catalog/all-535.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/all-530.webp"
             },
             {
                 "slug": "almadez-ekspress",
@@ -65,7 +70,8 @@
                         "unit": "шт",
                         "price": 1347,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 100мл. (спрей, антисептик)"
+                        "title": "Алмадез-Экспресс, 100мл. (спрей, антисептик)",
+                        "image": "/assets/img/catalog/ae-501.webp"
                     },
                     {
                         "sku": "АЭ-502",
@@ -73,7 +79,8 @@
                         "unit": "шт",
                         "price": 1200,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 50мл. (спрей, антисептик)"
+                        "title": "Алмадез-Экспресс, 50мл. (спрей, антисептик)",
+                        "image": "/assets/img/catalog/ae-502.webp"
                     },
                     {
                         "sku": "АЭ-503",
@@ -81,7 +88,8 @@
                         "unit": "шт",
                         "price": 4355,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 1л. (крышка, антисептик)"
+                        "title": "Алмадез-Экспресс, 1л. (крышка, антисептик)",
+                        "image": "/assets/img/catalog/ae-503.webp"
                     },
                     {
                         "sku": "АЭ-504",
@@ -89,7 +97,8 @@
                         "unit": "шт",
                         "price": 4569,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 1л. (насос-дозатор, антисептик)"
+                        "title": "Алмадез-Экспресс, 1л. (насос-дозатор, антисептик)",
+                        "image": "/assets/img/catalog/ae-504.webp"
                     },
                     {
                         "sku": "АЭ-505",
@@ -97,7 +106,8 @@
                         "unit": "шт",
                         "price": 3327,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 500мл. (триггер, антисептик)"
+                        "title": "Алмадез-Экспресс, 500мл. (триггер, антисептик)",
+                        "image": "/assets/img/catalog/ae-505.webp"
                     },
                     {
                         "sku": "АЭ-506",
@@ -105,7 +115,8 @@
                         "unit": "шт",
                         "price": 19484,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 5л. (евро, антисептик)"
+                        "title": "Алмадез-Экспресс, 5л. (евро, антисептик)",
+                        "image": "/assets/img/catalog/ae-506.webp"
                     },
                     {
                         "sku": "АЭ-508",
@@ -113,7 +124,8 @@
                         "unit": "шт",
                         "price": 5037,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 1л. (триггер, антисептик)"
+                        "title": "Алмадез-Экспресс, 1л. (триггер, антисептик)",
+                        "image": "/assets/img/catalog/ae-508.webp"
                     },
                     {
                         "sku": "АЭ-510",
@@ -121,7 +133,8 @@
                         "unit": "шт",
                         "price": 4155,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 750 мл. (триггер, антисептик)"
+                        "title": "Алмадез-Экспресс, 750 мл. (триггер, антисептик)",
+                        "image": "/assets/img/catalog/ae-510.webp"
                     },
                     {
                         "sku": "АЭ-511",
@@ -129,7 +142,8 @@
                         "unit": "шт",
                         "price": 5551,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 1л. (диспенсопак, антисептик)"
+                        "title": "Алмадез-Экспресс, 1л. (диспенсопак, антисептик)",
+                        "image": "/assets/img/catalog/ae-511.webp"
                     },
                     {
                         "sku": "АЭ-520",
@@ -137,9 +151,11 @@
                         "unit": "шт",
                         "price": 1900,
                         "to_order": false,
-                        "title": "Алмадез-Экспресс, 250мл. (спрей, круглая, антисептик)"
+                        "title": "Алмадез-Экспресс, 250мл. (спрей, круглая, антисептик)",
+                        "image": "/assets/img/catalog/ae-520.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/ae-501.webp"
             },
             {
                 "slug": "zdravdez-antiseptik",
@@ -157,7 +173,8 @@
                         "unit": "шт",
                         "price": 1140,
                         "to_order": true,
-                        "title": "ЗдравДез-Антисептик, 50мл. (спрей)"
+                        "title": "ЗдравДез-Антисептик, 50мл. (спрей)",
+                        "image": "/assets/img/catalog/zda-560.webp"
                     },
                     {
                         "sku": "ЗДА-561",
@@ -165,7 +182,8 @@
                         "unit": "шт",
                         "price": 1295,
                         "to_order": false,
-                        "title": "ЗдравДез-Антисептик, 100мл. (спрей)"
+                        "title": "ЗдравДез-Антисептик, 100мл. (спрей)",
+                        "image": "/assets/img/catalog/zda-561.webp"
                     },
                     {
                         "sku": "ЗДА-562",
@@ -173,7 +191,8 @@
                         "unit": "шт",
                         "price": 1645,
                         "to_order": true,
-                        "title": "ЗдравДез-Антисептик, 200мл. (спрей)"
+                        "title": "ЗдравДез-Антисептик, 200мл. (спрей)",
+                        "image": "/assets/img/catalog/zda-562.webp"
                     },
                     {
                         "sku": "ЗДА-563",
@@ -181,7 +200,8 @@
                         "unit": "шт",
                         "price": 3088,
                         "to_order": true,
-                        "title": "ЗдравДез-Антисептик, 500мл. (триггер)"
+                        "title": "ЗдравДез-Антисептик, 500мл. (триггер)",
+                        "image": "/assets/img/catalog/zda-563.webp"
                     },
                     {
                         "sku": "ЗДА-564",
@@ -189,7 +209,8 @@
                         "unit": "шт",
                         "price": 3732,
                         "to_order": true,
-                        "title": "ЗдравДез-Антисептик, 750мл. (триггер)"
+                        "title": "ЗдравДез-Антисептик, 750мл. (триггер)",
+                        "image": "/assets/img/catalog/zda-564.webp"
                     },
                     {
                         "sku": "ЗДА-565",
@@ -197,7 +218,8 @@
                         "unit": "шт",
                         "price": 4547,
                         "to_order": true,
-                        "title": "ЗдравДез-Антисептик, 1л. (триггер)"
+                        "title": "ЗдравДез-Антисептик, 1л. (триггер)",
+                        "image": "/assets/img/catalog/zda-565.webp"
                     },
                     {
                         "sku": "ЗДА-566",
@@ -205,7 +227,8 @@
                         "unit": "шт",
                         "price": 18510,
                         "to_order": false,
-                        "title": "ЗдравДез-Антисептик, 5л. (евро)"
+                        "title": "ЗдравДез-Антисептик, 5л. (евро)",
+                        "image": "/assets/img/catalog/zda-566.webp"
                     },
                     {
                         "sku": "ЗДА-567",
@@ -213,7 +236,8 @@
                         "unit": "шт",
                         "price": 4010,
                         "to_order": false,
-                        "title": "ЗдравДез-Антисептик, 1л. (крышка)"
+                        "title": "ЗдравДез-Антисептик, 1л. (крышка)",
+                        "image": "/assets/img/catalog/zda-567.webp"
                     },
                     {
                         "sku": "ЗДА-568",
@@ -221,9 +245,11 @@
                         "unit": "шт",
                         "price": 4163,
                         "to_order": false,
-                        "title": "ЗдравДез-Антисептик, 1л. (насос-дозатор)"
+                        "title": "ЗдравДез-Антисептик, 1л. (насос-дозатор)",
+                        "image": "/assets/img/catalog/zda-568.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/zda-560.webp"
             },
             {
                 "slug": "zdravdez-gel",
@@ -241,7 +267,8 @@
                         "unit": "шт",
                         "price": 1147,
                         "to_order": false,
-                        "title": "ЗдравДез-Гель, 100мл. (флип-топ, антисептик)"
+                        "title": "ЗдравДез-Гель, 100мл. (флип-топ, антисептик)",
+                        "image": "/assets/img/catalog/zdg-570.webp"
                     },
                     {
                         "sku": "ЗДГ-572",
@@ -249,7 +276,8 @@
                         "unit": "шт",
                         "price": 4140,
                         "to_order": false,
-                        "title": "ЗдравДез-Гель, 1л. (флип-топ, антисептик)"
+                        "title": "ЗдравДез-Гель, 1л. (флип-топ, антисептик)",
+                        "image": "/assets/img/catalog/zdg-572.webp"
                     },
                     {
                         "sku": "ЗДГ-573",
@@ -257,7 +285,8 @@
                         "unit": "шт",
                         "price": 4270,
                         "to_order": true,
-                        "title": "ЗдравДез-Гель, 1л. (насос-дозатор, антисептик)"
+                        "title": "ЗдравДез-Гель, 1л. (насос-дозатор, антисептик)",
+                        "image": "/assets/img/catalog/zdg-573.webp"
                     },
                     {
                         "sku": "ЗДГ-574",
@@ -265,9 +294,11 @@
                         "unit": "шт",
                         "price": 19016,
                         "to_order": false,
-                        "title": "ЗдравДез-Гель, 5л. (евро, антисептик)"
+                        "title": "ЗдравДез-Гель, 5л. (евро, антисептик)",
+                        "image": "/assets/img/catalog/zdg-574.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/zdg-570.webp"
             }
         ]
     },
@@ -293,7 +324,8 @@
                         "unit": "шт",
                         "price": 1085,
                         "to_order": false,
-                        "title": "Алмадез-Оптима, 50мл. (спрей, антисептик)"
+                        "title": "Алмадез-Оптима, 50мл. (спрей, антисептик)",
+                        "image": "/assets/img/catalog/ao-540.webp"
                     },
                     {
                         "sku": "АО-541",
@@ -301,7 +333,8 @@
                         "unit": "шт",
                         "price": 1170,
                         "to_order": false,
-                        "title": "Алмадез-Оптима, 100мл. (спрей, антисептик)"
+                        "title": "Алмадез-Оптима, 100мл. (спрей, антисептик)",
+                        "image": "/assets/img/catalog/ao-541.webp"
                     },
                     {
                         "sku": "АО-543",
@@ -309,7 +342,8 @@
                         "unit": "шт",
                         "price": 2290,
                         "to_order": false,
-                        "title": "Алмадез-Оптима, 500мл. (триггер, антисептик)"
+                        "title": "Алмадез-Оптима, 500мл. (триггер, антисептик)",
+                        "image": "/assets/img/catalog/ao-543.webp"
                     },
                     {
                         "sku": "АО-544",
@@ -317,7 +351,8 @@
                         "unit": "шт",
                         "price": 2590,
                         "to_order": false,
-                        "title": "Алмадез-Оптима, 750 мл. (триггер, антисептик)"
+                        "title": "Алмадез-Оптима, 750 мл. (триггер, антисептик)",
+                        "image": "/assets/img/catalog/ao-544.webp"
                     },
                     {
                         "sku": "АО-545",
@@ -325,7 +360,8 @@
                         "unit": "шт",
                         "price": 2330,
                         "to_order": false,
-                        "title": "Алмадез-Оптима, 1л. (крышка, антисептик)"
+                        "title": "Алмадез-Оптима, 1л. (крышка, антисептик)",
+                        "image": "/assets/img/catalog/ao-545.webp"
                     },
                     {
                         "sku": "АО-546",
@@ -333,7 +369,8 @@
                         "unit": "шт",
                         "price": 2567,
                         "to_order": false,
-                        "title": "Алмадез-Оптима, 1л. (насос-дозатор, антисептик)"
+                        "title": "Алмадез-Оптима, 1л. (насос-дозатор, антисептик)",
+                        "image": "/assets/img/catalog/ao-546.webp"
                     },
                     {
                         "sku": "АО-547",
@@ -341,9 +378,11 @@
                         "unit": "шт",
                         "price": 9200,
                         "to_order": false,
-                        "title": "Алмадез-Оптима, 5л. (евро, антисептик)"
+                        "title": "Алмадез-Оптима, 5л. (евро, антисептик)",
+                        "image": "/assets/img/catalog/ao-547.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/ao-540.webp"
             }
         ]
     },
@@ -368,7 +407,8 @@
                         "unit": "шт",
                         "price": 5000,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Экспресс №100 (17*14.5см) (В банке)"
+                        "title": "Салфетки влажные Алмадез-Экспресс №100 (17*14.5см) (В банке)",
+                        "image": "/assets/img/catalog/sal-v-11.webp"
                     },
                     {
                         "sku": "САЛ-В-16",
@@ -376,7 +416,8 @@
                         "unit": "шт",
                         "price": 2895,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Экспресс № 70 (18*13.5) (ФЛОУПАК)"
+                        "title": "Салфетки влажные Алмадез-Экспресс № 70 (18*13.5) (ФЛОУПАК)",
+                        "image": "/assets/img/catalog/sal-v-16.webp"
                     },
                     {
                         "sku": "САЛ-В-20",
@@ -384,7 +425,8 @@
                         "unit": "шт",
                         "price": 3535,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Экспресс №100 (16*13.5) (ФЛОУПАК)"
+                        "title": "Салфетки влажные Алмадез-Экспресс №100 (16*13.5) (ФЛОУПАК)",
+                        "image": "/assets/img/catalog/sal-v-20.webp"
                     },
                     {
                         "sku": "САЛ-В-28",
@@ -392,7 +434,8 @@
                         "unit": "шт",
                         "price": 3465,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Экспресс №100 (12*20) (смен.блок)"
+                        "title": "Салфетки влажные Алмадез-Экспресс №100 (12*20) (смен.блок)",
+                        "image": "/assets/img/catalog/sal-v-28.webp"
                     },
                     {
                         "sku": "САЛ-В-29",
@@ -400,9 +443,11 @@
                         "unit": "шт",
                         "price": 2445,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Экспресс № 60 (14*18) (смен.блок)"
+                        "title": "Салфетки влажные Алмадез-Экспресс № 60 (14*18) (смен.блок)",
+                        "image": "/assets/img/catalog/sal-v-29.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/sal-v-11.webp"
             },
             {
                 "slug": "salfetki-vlazhnye-almadez-likvid",
@@ -422,7 +467,8 @@
                         "unit": "шт",
                         "price": 3120,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Ликвид № 60 (13,5*18) (В БАНКЕ)"
+                        "title": "Салфетки влажные Алмадез-Ликвид № 60 (13,5*18) (В БАНКЕ)",
+                        "image": "/assets/img/catalog/sal-v-15.webp"
                     },
                     {
                         "sku": "САЛ-В-40",
@@ -430,7 +476,8 @@
                         "unit": "шт",
                         "price": 6838,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Ликвид №200 (12*20) (смен.блок)"
+                        "title": "Салфетки влажные Алмадез-Ликвид №200 (12*20) (смен.блок)",
+                        "image": "/assets/img/catalog/sal-v-40.webp"
                     },
                     {
                         "sku": "САЛ-В-41",
@@ -438,7 +485,8 @@
                         "unit": "шт",
                         "price": 9386,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Ликвид №200 (12*20) (В ВЕДРЕ)"
+                        "title": "Салфетки влажные Алмадез-Ликвид №200 (12*20) (В ВЕДРЕ)",
+                        "image": "/assets/img/catalog/sal-v-41.webp"
                     },
                     {
                         "sku": "САЛ-ВИ14",
@@ -446,7 +494,8 @@
                         "unit": "упак",
                         "price": 3295,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Ликвид САШЕ (8*8) (100шт. уп.) (Без коробки)"
+                        "title": "Салфетки влажные Алмадез-Ликвид САШЕ (8*8) (100шт. уп.) (Без коробки)",
+                        "image": "/assets/img/catalog/sal-vi14.webp"
                     },
                     {
                         "sku": "САЛ-ВИ15",
@@ -454,9 +503,11 @@
                         "unit": "упак",
                         "price": 4331,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Ликвид САШЕ (13.5*13) (100шт. уп)"
+                        "title": "Салфетки влажные Алмадез-Ликвид САШЕ (13.5*13) (100шт. уп)",
+                        "image": "/assets/img/catalog/sal-vi15.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/sal-v-15.webp"
             },
             {
                 "slug": "salfetki-vlazhnye-eldez-in",
@@ -472,7 +523,8 @@
                         "unit": "шт",
                         "price": 2405,
                         "to_order": false,
-                        "title": "Салфетки влажные Элдез-ИН, №60 (12*18) (в банке)"
+                        "title": "Салфетки влажные Элдез-ИН, №60 (12*18) (в банке)",
+                        "image": "/assets/img/catalog/sal-v-37.webp"
                     },
                     {
                         "sku": "САЛ-В-38",
@@ -480,9 +532,11 @@
                         "unit": "шт",
                         "price": 4000,
                         "to_order": false,
-                        "title": "Салфетки влажные Элдез-ИН №100 (18*14см) (В БАНКЕ)"
+                        "title": "Салфетки влажные Элдез-ИН №100 (18*14см) (В БАНКЕ)",
+                        "image": "/assets/img/catalog/sal-v-38.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/sal-v-37.webp"
             },
             {
                 "slug": "salfetki-vlazhnye-almadez-optima",
@@ -501,9 +555,11 @@
                         "unit": "шт",
                         "price": 2796,
                         "to_order": false,
-                        "title": "Салфетки влажные Алмадез-Оптима № 90 (16*13.5) (ФЛОУПАК)"
+                        "title": "Салфетки влажные Алмадез-Оптима № 90 (16*13.5) (ФЛОУПАК)",
+                        "image": "/assets/img/catalog/sal-v-52.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/sal-v-52.webp"
             }
         ]
     },
@@ -529,7 +585,8 @@
                         "unit": "шт",
                         "price": 2935,
                         "to_order": false,
-                        "title": "Алмадез-Концентрат, 500мл. (штоф)"
+                        "title": "Алмадез-Концентрат, 500мл. (штоф)",
+                        "image": "/assets/img/catalog/al-401.webp"
                     },
                     {
                         "sku": "АЛ-402",
@@ -537,7 +594,8 @@
                         "unit": "шт",
                         "price": 4524,
                         "to_order": false,
-                        "title": "Алмадез-Концентрат, 1л. (крышка)"
+                        "title": "Алмадез-Концентрат, 1л. (крышка)",
+                        "image": "/assets/img/catalog/al-402.webp"
                     },
                     {
                         "sku": "АЛ-406",
@@ -545,9 +603,11 @@
                         "unit": "шт",
                         "price": 20626,
                         "to_order": false,
-                        "title": "Алмадез-Концентрат, 5л. (евро)"
+                        "title": "Алмадез-Концентрат, 5л. (евро)",
+                        "image": "/assets/img/catalog/al-406.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/al-401.webp"
             },
             {
                 "slug": "almadez-eko",
@@ -564,7 +624,8 @@
                         "unit": "шт",
                         "price": 3419,
                         "to_order": false,
-                        "title": "Алмадез-Эко, 1л. (крышка, концентрат)"
+                        "title": "Алмадез-Эко, 1л. (крышка, концентрат)",
+                        "image": "/assets/img/catalog/al-eko-1l.webp"
                     },
                     {
                         "sku": "АЛ-ЭКО-5л",
@@ -572,9 +633,11 @@
                         "unit": "шт",
                         "price": 14173,
                         "to_order": false,
-                        "title": "Алмадез-Эко, 5л. (евро, концентрат)"
+                        "title": "Алмадез-Эко, 5л. (евро, концентрат)",
+                        "image": "/assets/img/catalog/al-eko-5l.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/al-eko-1l.webp"
             },
             {
                 "slug": "mediadez-koncentrat",
@@ -592,7 +655,8 @@
                         "unit": "шт",
                         "price": 4510,
                         "to_order": false,
-                        "title": "Медиадез-Концентрат, 1л. (крышка)"
+                        "title": "Медиадез-Концентрат, 1л. (крышка)",
+                        "image": "/assets/img/catalog/mdz-300.webp"
                     },
                     {
                         "sku": "МДЗ-301",
@@ -600,9 +664,11 @@
                         "unit": "шт",
                         "price": 20660,
                         "to_order": false,
-                        "title": "Медиадез-Концентрат, 5л. (евро)"
+                        "title": "Медиадез-Концентрат, 5л. (евро)",
+                        "image": "/assets/img/catalog/mdz-301.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/mdz-300.webp"
             }
         ]
     },
@@ -627,7 +693,8 @@
                         "unit": "шт",
                         "price": 5905,
                         "to_order": false,
-                        "title": "Алмадез-Эндо, 1л. (крышка, окси)"
+                        "title": "Алмадез-Эндо, 1л. (крышка, окси)",
+                        "image": "/assets/img/catalog/alme-1.webp"
                     },
                     {
                         "sku": "АЛМЭ-5",
@@ -635,9 +702,11 @@
                         "unit": "шт",
                         "price": 23759,
                         "to_order": false,
-                        "title": "Алмадез-Эндо, 5л. (евро, окси)"
+                        "title": "Алмадез-Эндо, 5л. (евро, окси)",
+                        "image": "/assets/img/catalog/alme-5.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/alme-1.webp"
             },
             {
                 "slug": "almadez-steril",
@@ -654,7 +723,8 @@
                         "unit": "шт",
                         "price": 6043,
                         "to_order": false,
-                        "title": "Алмадез-Стерил, 1л. (крышка, альдегид)"
+                        "title": "Алмадез-Стерил, 1л. (крышка, альдегид)",
+                        "image": "/assets/img/catalog/as-01.webp"
                     },
                     {
                         "sku": "АС-02",
@@ -662,9 +732,11 @@
                         "unit": "шт",
                         "price": 27021,
                         "to_order": false,
-                        "title": "Алмадез-Стерил, 5л. (евро, альдегид)"
+                        "title": "Алмадез-Стерил, 5л. (евро, альдегид)",
+                        "image": "/assets/img/catalog/as-02.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/as-01.webp"
             },
             {
                 "slug": "eldez-in",
@@ -680,7 +752,8 @@
                         "unit": "шт",
                         "price": 2513,
                         "to_order": false,
-                        "title": "Элдез-ИН, 1л. (крышка,альдегид)"
+                        "title": "Элдез-ИН, 1л. (крышка,альдегид)",
+                        "image": "/assets/img/catalog/el-in-340.webp"
                     },
                     {
                         "sku": "ЭЛ-ИН-341",
@@ -688,7 +761,8 @@
                         "unit": "шт",
                         "price": 9660,
                         "to_order": false,
-                        "title": "Элдез-ИН, 5л. (евро,альдегид)"
+                        "title": "Элдез-ИН, 5л. (евро,альдегид)",
+                        "image": "/assets/img/catalog/el-in-341.webp"
                     },
                     {
                         "sku": "ЭЛ-ИН-343",
@@ -696,9 +770,11 @@
                         "unit": "шт",
                         "price": 2375,
                         "to_order": false,
-                        "title": "Элдез-ИН, 500мл. (триггер, альдегид)"
+                        "title": "Элдез-ИН, 500мл. (триггер, альдегид)",
+                        "image": "/assets/img/catalog/el-in-343.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/el-in-340.webp"
             },
             {
                 "slug": "eldez-ofa",
@@ -714,7 +790,8 @@
                         "unit": "шт",
                         "price": 7570,
                         "to_order": false,
-                        "title": "Элдез-ОФА, 1л. (крышка)"
+                        "title": "Элдез-ОФА, 1л. (крышка)",
+                        "image": "/assets/img/catalog/el-of-350.webp"
                     },
                     {
                         "sku": "ЭЛ-ОФ-351",
@@ -722,9 +799,11 @@
                         "unit": "шт",
                         "price": 34871,
                         "to_order": false,
-                        "title": "Элдез-ОФА, 5л. (евро)"
+                        "title": "Элдез-ОФА, 5л. (евро)",
+                        "image": "/assets/img/catalog/el-of-351.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/el-of-350.webp"
             }
         ]
     },
@@ -750,7 +829,8 @@
                         "unit": "шт",
                         "price": 4853,
                         "to_order": false,
-                        "title": "Алмадез-Хлор (таблетки 3.4г), 1кг."
+                        "title": "Алмадез-Хлор (таблетки 3.4г), 1кг.",
+                        "image": "/assets/img/catalog/al-ht409.webp"
                     },
                     {
                         "sku": "АЛ-ХТ411",
@@ -758,9 +838,11 @@
                         "unit": "шт",
                         "price": 3057,
                         "to_order": true,
-                        "title": "Алмадез-Хлор (таблетки 3.4г), №100"
+                        "title": "Алмадез-Хлор (таблетки 3.4г), №100",
+                        "image": "/assets/img/catalog/al-ht411.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/al-ht409.webp"
             },
             {
                 "slug": "eldez-hlor-tabletki-s-pav",
@@ -779,9 +861,11 @@
                         "unit": "шт",
                         "price": 5076,
                         "to_order": false,
-                        "title": "Элдез-Хлор (таблетки с ПАВ), 1кг. (с моющим эффектом)"
+                        "title": "Элдез-Хлор (таблетки с ПАВ), 1кг. (с моющим эффектом)",
+                        "image": "/assets/img/catalog/el-hlt-02.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/el-hlt-02.webp"
             }
         ]
     },
@@ -837,7 +921,8 @@
                         "unit": "шт",
                         "price": 2060,
                         "to_order": false,
-                        "title": "Алмадез-Лайт, 1л. (крышка, мыло)"
+                        "title": "Алмадез-Лайт, 1л. (крышка, мыло)",
+                        "image": "/assets/img/catalog/mal-03.webp"
                     },
                     {
                         "sku": "МАЛ-04",
@@ -845,7 +930,8 @@
                         "unit": "шт",
                         "price": 2252,
                         "to_order": false,
-                        "title": "Алмадез-Лайт, 1л. (насос-дозатор, мыло)"
+                        "title": "Алмадез-Лайт, 1л. (насос-дозатор, мыло)",
+                        "image": "/assets/img/catalog/mal-04.webp"
                     },
                     {
                         "sku": "МАЛ-05",
@@ -853,7 +939,8 @@
                         "unit": "шт",
                         "price": 8302,
                         "to_order": false,
-                        "title": "Алмадез-Лайт, 5л. (евро, мыло)"
+                        "title": "Алмадез-Лайт, 5л. (евро, мыло)",
+                        "image": "/assets/img/catalog/mal-05.webp"
                     },
                     {
                         "sku": "МАЛ-07",
@@ -861,7 +948,8 @@
                         "unit": "шт",
                         "price": 3403,
                         "to_order": true,
-                        "title": "Алмадез-Лайт, 1л. (диспенсопак, мыло)"
+                        "title": "Алмадез-Лайт, 1л. (диспенсопак, мыло)",
+                        "image": "/assets/img/catalog/mal-07.webp"
                     },
                     {
                         "sku": "МАЛ-09",
@@ -869,9 +957,11 @@
                         "unit": "шт",
                         "price": 1631,
                         "to_order": false,
-                        "title": "Алмадез-Лайт, 500мл. (насос-дозатор, мыло)"
+                        "title": "Алмадез-Лайт, 500мл. (насос-дозатор, мыло)",
+                        "image": "/assets/img/catalog/mal-09.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/mal-03.webp"
             },
             {
                 "slug": "almadez-profi",
@@ -890,7 +980,8 @@
                         "unit": "шт",
                         "price": 2682,
                         "to_order": false,
-                        "title": "Алмадез-Профи, 1л. (крышка, мыло)"
+                        "title": "Алмадез-Профи, 1л. (крышка, мыло)",
+                        "image": "/assets/img/catalog/map-83.webp"
                     },
                     {
                         "sku": "МАП-85",
@@ -898,7 +989,8 @@
                         "unit": "шт",
                         "price": 2888,
                         "to_order": false,
-                        "title": "Алмадез-Профи, 1л. (насос-дозатор, мыло)"
+                        "title": "Алмадез-Профи, 1л. (насос-дозатор, мыло)",
+                        "image": "/assets/img/catalog/map-85.webp"
                     },
                     {
                         "sku": "МАП-87",
@@ -906,9 +998,11 @@
                         "unit": "шт",
                         "price": 11134,
                         "to_order": false,
-                        "title": "Алмадез-Профи, 5л. (евро, мыло)"
+                        "title": "Алмадез-Профи, 5л. (евро, мыло)",
+                        "image": "/assets/img/catalog/map-87.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/map-83.webp"
             },
             {
                 "slug": "eldez-mylo",
@@ -925,7 +1019,8 @@
                         "unit": "шт",
                         "price": 2205,
                         "to_order": false,
-                        "title": "Элдез-Мыло, 1л. (тв.крышка)"
+                        "title": "Элдез-Мыло, 1л. (тв.крышка)",
+                        "image": "/assets/img/catalog/el-m-370.webp"
                     },
                     {
                         "sku": "ЭЛ-М-371",
@@ -933,7 +1028,8 @@
                         "unit": "шт",
                         "price": 2398,
                         "to_order": false,
-                        "title": "Элдез-Мыло, 1л. (тв.дозатор-насос)"
+                        "title": "Элдез-Мыло, 1л. (тв.дозатор-насос)",
+                        "image": "/assets/img/catalog/el-m-371.webp"
                     },
                     {
                         "sku": "ЭЛ-М-372",
@@ -941,9 +1037,11 @@
                         "unit": "шт",
                         "price": 9040,
                         "to_order": false,
-                        "title": "Элдез-Мыло, 5л. (евро)"
+                        "title": "Элдез-Мыло, 5л. (евро)",
+                        "image": "/assets/img/catalog/el-m-372.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/el-m-370.webp"
             }
         ]
     },
@@ -964,7 +1062,8 @@
                         "unit": "шт",
                         "price": 3602,
                         "to_order": false,
-                        "title": "Диспенсер Алмадез, 3.8л. (ёмкость, крышка, наклейка)"
+                        "title": "Диспенсер Алмадез, 3.8л. (ёмкость, крышка, наклейка)",
+                        "image": "/assets/img/catalog/dis16.webp"
                     },
                     {
                         "sku": "ДИС17",
@@ -972,7 +1071,8 @@
                         "unit": "шт",
                         "price": 4123,
                         "to_order": false,
-                        "title": "Диспенсер Алмадез, 5.7л. (ёмкость, крышка, наклейка)"
+                        "title": "Диспенсер Алмадез, 5.7л. (ёмкость, крышка, наклейка)",
+                        "image": "/assets/img/catalog/dis17.webp"
                     },
                     {
                         "sku": "ДИС2----",
@@ -980,7 +1080,8 @@
                         "unit": "шт",
                         "price": 3495,
                         "to_order": false,
-                        "title": "Диспенсер Алмадез, 3.0л. (ёмкость, крышка, наклейка)"
+                        "title": "Диспенсер Алмадез, 3.0л. (ёмкость, крышка, наклейка)",
+                        "image": "/assets/img/catalog/dis2.webp"
                     },
                     {
                         "sku": "ДИС6ВЫС",
@@ -988,9 +1089,11 @@
                         "unit": "шт",
                         "price": 7655,
                         "to_order": false,
-                        "title": "Диспенсер Алмадез, 5.0л. (высокий, ёмкость, крышка, наклейка)"
+                        "title": "Диспенсер Алмадез, 5.0л. (высокий, ёмкость, крышка, наклейка)",
+                        "image": "/assets/img/catalog/dis6vys.webp"
                     }
-                ]
+                ],
+                "image": "/assets/img/catalog/dis16.webp"
             }
         ]
     }

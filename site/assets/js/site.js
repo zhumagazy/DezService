@@ -75,6 +75,21 @@
       catalog.querySelector('.catalog__empty').hidden = any;
     });
 
+    // show the photo of the size under the pointer or the one just tapped
+    function showSize(li) {
+      var img = li.closest('.sku').querySelector('.sku__img');
+      var src = li.dataset.img || (img && img.dataset.main);
+      if (!img || !src || img.getAttribute('src') === src) return;
+      img.dataset.main = img.dataset.main || img.getAttribute('src');
+      img.src = src;
+      li.parentNode.querySelectorAll('.is-shown').forEach(function (x) { x.classList.remove('is-shown'); });
+      li.classList.add('is-shown');
+    }
+    rows.forEach(function (li) {
+      li.addEventListener('mouseenter', function () { showSize(li); });
+      li.addEventListener('click', function () { showSize(li); });
+    });
+
     var cartEl = document.querySelector('.cart');
     var panel = document.getElementById('cart-panel');
     var KEY = 'dez-cart';

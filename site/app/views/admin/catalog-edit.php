@@ -39,10 +39,11 @@ $items[] = ['name' => '', 'shelf' => '', 'composition' => [], 'variants' => [], 
       <label>Состав <small>(каждый компонент с новой строки)</small>
         <textarea name="items[<?= $i ?>][composition]" rows="<?= max(2, count($it['composition'])) ?>"><?= e(implode("\n", $it['composition'])) ?></textarea></label>
       <table class="a-variants">
-        <thead><tr><th>Артикул</th><th>Фасовка</th><th>Ед.</th><th>Цена, ₸ с НДС</th><th>Под заказ</th><th>Удалить</th></tr></thead>
+        <thead><tr><th></th><th>Артикул</th><th>Фасовка</th><th>Ед.</th><th>Цена, ₸ с НДС</th><th>Под заказ</th><th>Удалить</th></tr></thead>
         <tbody>
         <?php foreach ($rows as $j => $v): $v += ['sku' => '', 'size' => '', 'unit' => 'шт', 'price' => '', 'to_order' => false]; $empty = $v['sku'] === '' && $v['size'] === ''; ?>
           <tr<?= $empty ? ' class="a-variants__new"' : '' ?>>
+            <td class="a-thumb"><?php if (!empty($v['image'])): ?><img src="<?= e($v['image']) ?>" alt=""><?php endif ?><input type="hidden" name="items[<?= $i ?>][variants][<?= $j ?>][image]" value="<?= e($v['image'] ?? '') ?>"></td>
             <td><input name="items[<?= $i ?>][variants][<?= $j ?>][sku]" value="<?= e($v['sku']) ?>" maxlength="40"<?= $empty ? ' placeholder="новая фасовка"' : '' ?>></td>
             <td><input name="items[<?= $i ?>][variants][<?= $j ?>][size]" value="<?= e($v['size']) ?>" maxlength="120"<?= $empty ? ' placeholder="1 л · крышка"' : '' ?>></td>
             <td><input name="items[<?= $i ?>][variants][<?= $j ?>][unit]" value="<?= e($v['unit']) ?>" maxlength="10"></td>

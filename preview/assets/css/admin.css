@@ -61,7 +61,8 @@ code { background: #eef1f3; padding: 1px 6px; border-radius: 4px; }
 .a-variants th { font-size: 12px; color: var(--muted); font-weight: 600; text-align: left; padding: 4px 6px; }
 .a-variants td { padding: 3px 6px; }
 .a-variants input:not([type=checkbox]) { margin: 0 !important; padding: 7px 10px !important; }
-.a-variants td:nth-child(1) { width: 15%; } .a-variants td:nth-child(3) { width: 8%; } .a-variants td:nth-child(4) { width: 15%; }
+.a-variants td:nth-child(2) { width: 15%; } .a-variants td:nth-child(4) { width: 8%; } .a-variants td:nth-child(5) { width: 15%; }
+.a-thumb { width: 44px; } .a-thumb img { width: 36px; height: 36px; object-fit: contain; display: block; }
 .a-variants__new input { background: #fbfdfe !important; }
 .a-c { text-align: center; }
 .a-c input { width: 20px; height: 20px; }

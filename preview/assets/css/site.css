@@ -381,3 +381,5 @@ html.menu-open .dock { display: none; }
 .cart__line { grid-column: 1 / -1; display: flex; justify-content: space-between; color: var(--text-2); font-size: 14px; }
 html.has-cart .dock { display: none; }
 html.has-cart body { padding-bottom: 96px; }
+.sku__variants li[data-img] { cursor: pointer; }
+.sku__variants li.is-shown .sku__size { color: var(--tint); }
