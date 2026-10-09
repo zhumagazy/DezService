@@ -185,8 +185,9 @@ p { margin: 0 0 16px; }
 /* ---------- trust ---------- */
 .logos { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 .logos li { background: #fff; border-radius: var(--radius-sm); display: grid; place-items: center; padding: 16px; height: 96px; }
-.logos img { max-height: 56px; width: auto; filter: grayscale(1); opacity: .8; transition: filter .2s, opacity .2s; }
-.logos li:hover img { filter: none; opacity: 1; }
+.logos img { max-height: 56px; max-width: 100%; width: auto; object-fit: contain; transition: transform .2s ease; }
+.logos li:hover img { transform: scale(1.12); }
+@media (prefers-reduced-motion: reduce) { .logos img { transition: none; } }
 .section--clients { padding-top: 0; }
 .section--clients .logos li { border: 1px solid var(--line); }
 .certs { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
