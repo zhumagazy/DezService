@@ -152,6 +152,128 @@ if ($path === '/admin/edit') {
     admin_page('edit', ['title' => $a['id'] ? 'Редактирование' : 'Новая статья', 'a' => $a, 'errors' => $errors]);
 }
 
+// ---------- disinfectants catalog
+if (strpos($path, '/admin/catalog') === 0) {
+    $cat = catalog();
+    $msg = $err = '';
+
+    if ($path === '/admin/catalog/upload' && $post) {
+        csrf_check();
+        $f = $_FILES['csv'] ?? null;
+        $new = ($f && $f['error'] === UPLOAD_ERR_OK && $f['size'] < 5 * 1024 * 1024) ? catalog_from_csv($f['tmp_name']) : [];
+        if (!catalog_count($new)) {
+            $err = 'Не удалось прочитать прайс. Скачайте лист из Google-таблицы как CSV (Файл → Скачать → CSV) и загрузите этот файл.';
+        } else {
+            $old = [];
+            foreach ($cat as $g) foreach ($g['items'] as $it) foreach ($it['variants'] as $v) $old[$v['sku']] = $v['price'];
+            $added = $changed = 0;
+            foreach ($new as $g) foreach ($g['items'] as $it) foreach ($it['variants'] as $v) {
+                if (!isset($old[$v['sku']])) $added++;
+                elseif ($old[$v['sku']] !== $v['price']) $changed++;
+                unset($old[$v['sku']]);
+            }
+            catalog_save($new);
+            $_SESSION['flash'] = sprintf('Прайс загружен. Позиций: %d, категорий: %d. Новых позиций: %d, изменилась цена: %d, убрано: %d.',
+                catalog_count($new), count($new), $added, $changed, count($old));
+            redirect('/admin/catalog');
+        }
+    }
+
+    if ($path === '/admin/catalog/rollback' && $post) {
+        csrf_check();
+        $prev = storage_read('catalog-prev.php');
+        if (is_array($prev)) {
+            storage_write('catalog.php', $prev);
+            @unlink(STORAGE . '/catalog-prev.php');
+            $_SESSION['flash'] = 'Вернули предыдущую версию каталога.';
+        }
+        redirect('/admin/catalog');
+    }
+
+    if ($path === '/admin/catalog/category' && $post) {
+        csrf_check();
+        $title = trim((string)($_POST['title'] ?? ''));
+        if ($title !== '') {
+            $slug = trim(substr(slugify($title), 0, 40), '-') ?: 'kategoriya';
+            while (in_array($slug, array_column($cat, 'slug'), true)) $slug .= '-2';
+            $cat[] = ['slug' => $slug, 'title' => $title, 'short' => trim((string)($_POST['short'] ?? '')) ?: $title, 'items' => []];
+            catalog_save($cat);
+            redirect('/admin/catalog/edit?cat=' . $slug);
+        }
+        redirect('/admin/catalog');
+    }
+
+    if ($path === '/admin/catalog/edit') {
+        $ci = array_search((string)($_GET['cat'] ?? ''), array_column($cat, 'slug'), true);
+        if ($ci === false) redirect('/admin/catalog');
+        $g = $cat[$ci];
+        $errors = [];
+        if ($post) {
+            csrf_check();
+            if (!empty($_POST['delete_category'])) {
+                array_splice($cat, $ci, 1);
+                catalog_save($cat);
+                $_SESSION['flash'] = 'Категория «' . $g['title'] . '» удалена.';
+                redirect('/admin/catalog');
+            }
+            $g = catalog_category_from_post($g, $_POST, $errors);
+            if (!$errors) {
+                $cat[$ci] = $g;
+                // product anchors must stay unique on the page
+                $seen = [];
+                foreach ($cat as &$gg) foreach ($gg['items'] as &$it) {
+                    $base = $it['slug'] = slugify($it['name']) ?: 'sredstvo';
+                    for ($n = 2; isset($seen[$it['slug']]); $n++) $it['slug'] = $base . '-' . $n;
+                    $seen[$it['slug']] = true;
+                }
+                unset($gg, $it);
+                catalog_save($cat);
+                redirect('/admin/catalog/edit?cat=' . $g['slug'] . '&saved=1');
+            }
+        }
+        admin_page('catalog-edit', ['title' => $g['title'], 'g' => $g, 'errors' => $errors]);
+    }
+
+    $flash = $_SESSION['flash'] ?? '';
+    unset($_SESSION['flash']);
+    admin_page('catalog', ['title' => 'Дезсредства', 'cat' => $cat, 'flash' => $flash, 'err' => $err,
+        'has_prev' => is_array(storage_read('catalog-prev.php'))]);
+}
+
+/** Rebuild one category from the edit form; rows without article and price are skipped. */
+function catalog_category_from_post(array $g, array $in, array &$errors)
+{
+    $g['title'] = trim((string)($in['title'] ?? '')) ?: $g['title'];
+    $g['short'] = trim((string)($in['short'] ?? '')) ?: $g['title'];
+    $items = [];
+    foreach ((array)($in['items'] ?? []) as $p) {
+        if (!empty($p['delete'])) continue;
+        $name = trim((string)($p['name'] ?? ''));
+        $variants = [];
+        foreach ((array)($p['variants'] ?? []) as $v) {
+            $sku = trim((string)($v['sku'] ?? ''));
+            $size = trim((string)($v['size'] ?? ''));
+            $price = trim((string)($v['price'] ?? ''));
+            if (!empty($v['delete']) || ($sku === '' && $size === '' && $price === '')) continue;
+            if ($price === '' || !preg_match('/^\d[\d\s]*$/u', str_replace("\u{00A0}", ' ', $price))) {
+                $errors[] = 'Укажите цену цифрами: ' . ($name ?: 'новое средство') . ($size !== '' ? ', ' . $size : '') . '.';
+            }
+            $variants[] = ['sku' => $sku, 'size' => $size, 'unit' => trim((string)($v['unit'] ?? '')) ?: 'шт',
+                'price' => (int)preg_replace('/\D/', '', $price), 'to_order' => !empty($v['to_order']),
+                'title' => $name . ($size !== '' ? ', ' . $size : '')];
+        }
+        if ($name === '' && !$variants) continue;  // the empty «new product» block
+        if ($name === '') $errors[] = 'У средства с фасовками не указано название.';
+        if (!$variants) {
+            $errors[] = 'У средства «' . $name . '» нет ни одной фасовки с ценой.';
+        }
+        $items[] = ['slug' => '', 'name' => $name, 'shelf' => trim((string)($p['shelf'] ?? '')),
+            'composition' => parse_lines((string)($p['composition'] ?? '')), 'variants' => $variants];
+    }
+    $g['items'] = $items;
+    return $g;
+}
+
 if ($path === '/admin') {
     admin_page('list', ['title' => 'Статьи', 'list' => articles_all(false)]);
 }

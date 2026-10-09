@@ -14,6 +14,7 @@
     <nav>
       <a href="/admin">Статьи</a>
       <a href="/admin/edit">Новая статья</a>
+      <a href="/admin/catalog">Дезсредства</a>
       <a href="/admin/password">Пароль</a>
       <a href="/" target="_blank">Открыть сайт</a>
       <form method="post" action="/admin/logout"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><button>Выйти</button></form>

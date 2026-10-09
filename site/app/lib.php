@@ -63,12 +63,150 @@ function money($n)
     return number_format((int)$n, 0, '', "\u{00A0}") . "\u{00A0}₸";
 }
 
-/** Price list of disinfectants, built from the supplier sheet by scripts/import_catalog.py. */
+// ---------------------------------------------------------------- disinfectants catalog
+
+/** Price list: the admin's version from storage, else the bundled app/catalog.json. */
 function catalog()
 {
     static $c;
-    if ($c === null) $c = json_decode((string)@file_get_contents(__DIR__ . '/catalog.json'), true) ?: [];
+    if ($c === null) {
+        $c = storage_read('catalog.php');
+        if (!is_array($c)) $c = json_decode((string)@file_get_contents(__DIR__ . '/catalog.json'), true) ?: [];
+    }
     return $c;
+}
+
+/** Save the catalog edited in the admin; the previous version is kept for one-step rollback. */
+function catalog_save(array $cat)
+{
+    storage_write('catalog-prev.php', catalog());
+    storage_write('catalog.php', array_values($cat));
+}
+
+function catalog_count(array $cat)
+{
+    $n = 0;
+    foreach ($cat as $g) foreach ($g['items'] as $it) $n += count($it['variants']);
+    return $n;
+}
+
+/**
+ * Parse the supplier price list exported from Google Sheets as CSV
+ * (columns: артикул, -, наименование, фото, состав, срок годности, ед. изм, цена с НДС).
+ * Rows with only text are category headings; sizes of one line are grouped into one card.
+ */
+function catalog_from_csv($file)
+{
+    $fix = ['Крем для рук' => 'Диспенсеры'];  // a heading in the sheet that does not match its rows
+    $short = [
+        'Антисептики спиртовые для рук, кожи и поверхностей' => 'Спиртовые антисептики',
+        'Антисептики бесспиртовые для рук, кожи и поверхностей' => 'Бесспиртовые антисептики',
+        'Влажные салфетки, дезинфицирующие' => 'Салфетки',
+        'Универсальные дезинфицирующие средства (концентраты, с моющим действием)' => 'Концентраты',
+        'Препараты для стерилизации и ДВУ' => 'Стерилизация и ДВУ',
+        'Хлорсодержащие средства в таблетках и гранулах' => 'Хлорные таблетки',
+        'Средство для предстерилизационной очистки' => 'ПСО',
+        'Дезинфицирующее мыло' => 'Мыло',
+    ];
+    $h = fopen($file, 'r');
+    if (!$h) return [];
+    $bom = fread($h, 3);
+    if ($bom !== "\xEF\xBB\xBF") rewind($h);
+    $cats = [];
+    $ci = -1;
+    $first = true;
+    while (($r = fgetcsv($h, 0, ',', '"', '')) !== false) {
+        if ($first) { $first = false; continue; }  // header row
+        $r = array_map(function ($v) { return str_replace("\u{00A0}", ' ', (string)$v); }, array_pad($r, 8, ''));
+        $art = trim($r[0]);
+        $name = trim($r[2]);
+        if (($art !== '' && $name === '') || ($name !== '' && $art === '' && trim($r[7]) === '')) {
+            $title = trim(preg_replace('/^[\d.]+\s*/u', '', $art !== '' ? $art : $name));
+            $title = $fix[$title] ?? $title;
+            $cats[] = ['slug' => trim(substr(slugify($title), 0, 40), '-'), 'title' => $title, 'short' => $short[$title] ?? $title, 'items' => []];
+            $ci = count($cats) - 1;
+            continue;
+        }
+        if ($art === '' || $name === '' || $ci < 0) continue;
+        $toOrder = (bool)preg_match('/под заказ/iu', $name);
+        $name = trim(preg_replace('/\s*под заказ\s*/iu', ' ', $name));
+        $name = preg_replace('/\s+/u', ' ', $name);
+        [$base, $size] = catalog_split_name($name);
+        $ii = null;
+        foreach ($cats[$ci]['items'] as $k => $it) if ($it['name'] === $base) $ii = $k;
+        if ($ii === null) {
+            $equipment = $cats[$ci]['title'] === 'Диспенсеры';  // containers: no composition or shelf life
+            $cats[$ci]['items'][] = ['slug' => slugify($base), 'name' => $base,
+                'composition' => $equipment ? [] : catalog_lines($r[4]), 'shelf' => $equipment ? '' : catalog_shelf($r[5]), 'variants' => []];
+            $ii = count($cats[$ci]['items']) - 1;
+        }
+        $cats[$ci]['items'][$ii]['variants'][] = ['sku' => $art, 'size' => $size, 'unit' => trim($r[6]) ?: 'шт',
+            'price' => (int)preg_replace('/\D/', '', $r[7]), 'to_order' => $toOrder, 'title' => $name];
+    }
+    fclose($h);
+    return array_values(array_filter($cats, function ($g) { return $g['items']; }));
+}
+
+function catalog_lines($text)
+{
+    $lines = [];
+    foreach (explode("\n", str_replace("\r", '', $text)) as $ln) {
+        $ln = trim(preg_replace('/\s+/u', ' ', $ln), ' ,.');
+        if ($ln === '') continue;
+        // a wrapped line of one ingredient: «… хлорид и» + «дидецил… хлорид (суммарно) 3%»
+        if ($lines && (substr($lines[count($lines) - 1], -3) === ' и' || $ln[0] === '(' || strpos($ln, 'и ') === 0)) {
+            $lines[count($lines) - 1] .= ' ' . $ln;
+        } else {
+            $lines[] = $ln;
+        }
+    }
+    return $lines;
+}
+
+function catalog_shelf($text)
+{
+    $text = trim(preg_replace('/\s+/u', ' ', $text));
+    if ($text === '') return '';
+    if (strpos($text, '/') === false) return mb_strtoupper(mb_substr($text, 0, 1)) . mb_substr($text, 1);
+    [$pack, $sol] = array_map('trim', explode('/', $text, 2));
+    return 'Срок годности ' . $pack . ($sol !== '' && $sol !== '-' ? ', рабочего раствора ' . $sol : '');
+}
+
+/** «Алмадез-Ликвид, 1л. (антисептик, крышка)» → ['Алмадез-Ликвид', '1 л · крышка']. */
+function catalog_split_name($name)
+{
+    $lowerFirst = function ($b) {
+        $f = mb_substr($b, 0, 1);
+        $upper = preg_match('/\p{L}/u', $b) && !preg_match('/\p{Ll}/u', $b);
+        return ($upper || ($f !== mb_strtolower($f))) ? mb_strtolower($b) : $b;
+    };
+    if (strpos($name, 'Салфетки') === 0 && preg_match('/^(.*?)\s+(№\s*\d+|САШЕ)\s*(.*)$/u', $name, $m)) {
+        // «Салфетки влажные Алмадез-Ликвид №200 (12*20) (В ВЕДРЕ)», «… САШЕ (8*8) (100шт. уп.)»
+        $head = str_replace('САШЕ', 'саше', preg_replace('/№\s*(\d+)/u', '№ $1 шт.', $m[2]));
+        preg_match_all('/\(([^)]*)\)/u', $m[3], $bm);
+        $bits = [];
+        foreach ($bm[1] as $b) {
+            $b = $lowerFirst(trim($b, ' .'));
+            $bits[] = preg_replace('/(\d+)шт\. уп/u', '$1 шт. в упаковке', $b);
+        }
+        return [trim($m[1], ' ,'), implode(' · ', array_merge([$head], $bits))];
+    }
+    if (preg_match('/^(.*?),\s*(.+)$/u', $name, $m) || preg_match('/^(.*?)\s+(№\s*\d.*)$/u', $name, $m)) {
+        [$base, $rest] = [$m[1], $m[2]];
+    } else {
+        [$base, $rest] = [$name, ''];
+    }
+    $rest = str_replace(['(', ')'], ' ', $rest);
+    $parts = array_values(array_filter(array_map('trim', preg_split('/[,\s]{2,}|,/u', $rest)), function ($p) {
+        return $p !== '' && !in_array(mb_strtolower($p), ['антисептик', 'мыло', 'концентрат'], true);
+    }));
+    $size = $parts[0] ?? '';
+    $size = preg_replace('/(\d)\s*(мл|л|кг|г)\.?$/u', '$1 $2', $size);
+    $size = preg_replace('/№\s*(\d+)/u', '№ $1', $size);
+    $more = array_map(function ($p) {
+        return (mb_strlen($p) > 3 && preg_match('/\p{L}/u', $p) && !preg_match('/\p{Ll}/u', $p)) ? mb_strtolower($p) : $p;
+    }, array_slice($parts, 1));
+    return [trim($base), trim(implode(' · ', array_merge([$size], $more)), ' ·')];
 }
 
 function schema_catalog()
