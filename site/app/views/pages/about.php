@@ -7,6 +7,7 @@
   </div>
 </section>
 <?= view('partials/advantages') ?>
+<?= view('partials/gallery', ['class' => 'section section--muted', 'title' => 'Наша команда за работой']) ?>
 <?= view('partials/clients') ?>
 <?= view('partials/trust') ?>
 <?= view('partials/lead') ?>

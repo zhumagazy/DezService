@@ -49,6 +49,7 @@
 <?php endif ?>
 <?= view('partials/advantages') ?>
 <?= view('partials/steps') ?>
+<?php if ($slug === 'dlya-biznesa'): ?><?= view('partials/gallery', ['class' => 'section section--muted', 'title' => 'Работаем на крупных объектах']) ?><?php endif ?>
 <?= view('partials/lead', ['title' => 'Рассчитаем стоимость: ' . mb_strtolower($s['menu'])]) ?>
 <?= view('partials/reviews', ['limit' => 3, 'service' => $slug]) ?>
 <?= view('partials/faq', ['faq' => $s['faq']]) ?>

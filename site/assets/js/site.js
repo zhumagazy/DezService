@@ -153,6 +153,32 @@
     render();
   }
 
+  // Photo gallery: open the full picture over the page
+  var box;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-lightbox]');
+    if (!a || !window.HTMLDialogElement) return;
+    e.preventDefault();
+    if (!box) {
+      box = document.createElement('dialog');
+      box.className = 'lightbox';
+      box.innerHTML = '<button type="button" aria-label="Закрыть">×</button><img alt=""><p></p>';
+      box.addEventListener('click', function (ev) { if (ev.target !== box.querySelector('img')) box.close(); });
+      document.body.appendChild(box);
+    }
+    var im = a.querySelector('img');
+    box.querySelector('img').src = a.href;
+    box.querySelector('img').alt = im.alt;
+    box.querySelector('p').textContent = im.alt;
+    box.showModal();
+  });
+
+  // Videos of our work: one at a time
+  document.addEventListener('play', function (e) {
+    if (e.target.tagName !== 'VIDEO') return;
+    document.querySelectorAll('.videos video').forEach(function (v) { if (v !== e.target) v.pause(); });
+  }, true);
+
   // Conversion goals — same events and counter as on the previous site
   function goal(name) {
     try { if (window.fbq) window.fbq('track', 'Lead'); } catch (err) {}

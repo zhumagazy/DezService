@@ -75,6 +75,7 @@
 </section>
 
 <?= view('partials/steps') ?>
+<?= view('partials/gallery', ['class' => 'section section--muted']) ?>
 <?= view('partials/reviews', ['limit' => 3]) ?>
 
 <section class="section">

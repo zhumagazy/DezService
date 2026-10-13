@@ -150,6 +150,19 @@ return [
     ['q' => 'Как оплатить?', 'a' => 'Наличными, переводом или Kaspi, для организаций — по счёту.'],
 ],
 
+// Real photos and videos of the team. Photo: 'image' => name in assets/img (plus <name>-sm.webp preview).
+// Video: 'video' => '/assets/video/name.mp4', 'image' => poster name.
+'gallery' => [
+    ['image' => 'work-nu-team', 'caption' => 'Бригада на объекте Nazarbayev University'],
+    ['image' => 'work-nu-atrium', 'caption' => 'Обработка атриума Nazarbayev University'],
+    ['image' => 'work-team-suits', 'caption' => 'В защитных костюмах и респираторах на ночной обработке'],
+    ['image' => 'work-brigade', 'caption' => 'Специалисты с оборудованием перед дезинфекцией помещений'],
+    ['video' => '/assets/video/work-video-holl.mp4', 'image' => 'work-video-holl', 'caption' => 'Дезинфекция холла офисного здания'],
+    ['video' => '/assets/video/work-video-pishcheblok.mp4', 'image' => 'work-video-pishcheblok', 'caption' => 'Обработка пищеблока'],
+    ['video' => '/assets/video/work-video-ofis.mp4', 'image' => 'work-video-ofis', 'caption' => 'Дезинфекция офисных помещений'],
+    ['video' => '/assets/video/work-video-kuhnya.mp4', 'image' => 'work-video-kuhnya', 'caption' => 'Обработка кухни холодным туманом'],
+],
+
 'clients' => [
     ['name' => 'Қазақстан темір жолы', 'image' => 'client-ktz'],
     ['name' => 'Magnum', 'image' => 'client-magnum'],
