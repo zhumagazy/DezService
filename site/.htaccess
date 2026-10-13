@@ -5,6 +5,11 @@ AddDefaultCharset utf-8
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # one address for search engines: www.dezservis.kz → dezservis.kz
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+  # pages of the old Tilda site → home page instead of «not found»
+  RewriteRule ^(page[0-9]+\.html|tpost/.*|tproduct/.*)$ / [R=301,L]
   RewriteRule ^(storage|app)(/|$) - [F,L]
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
