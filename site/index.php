@@ -146,6 +146,15 @@ if ($path === '/') {
         ]] : []),
         'body' => view('pages/article', ['a' => $a, 'services' => $services]),
     ]);
+} elseif ($path === '/thankyoupage' || $path === '/thankyoupage/index.html') {
+    // address kept from the old site: ad and analytics goals may count visits to it
+    render_page([
+        'title' => 'Спасибо! Заявка принята — ' . cfg('name'),
+        'description' => '',
+        'canonical' => null,
+        'noindex' => true,
+        'body' => view('pages/thanks'),
+    ]);
 } elseif ($path === '/sitemap.xml') {
     header('Content-Type: application/xml; charset=utf-8');
     echo view('sitemap', ['services' => $services, 'articles' => articles_all()]);

@@ -407,3 +407,4 @@ html.has-cart body { padding-bottom: 96px; }
 @media (min-width: 900px) { .videos { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
 .videos video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: var(--radius); background: #000; }
 .videos span { display: block; margin-top: 8px; font-size: 14px; color: var(--text-2); line-height: 1.3; }
+.thanks__actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
