@@ -24,7 +24,8 @@ $videos = array_values(array_filter($items, function ($g) { return !empty($g['vi
       <ul class="videos">
         <?php foreach ($videos as $g): ?>
           <li>
-            <video src="<?= e($g['video']) ?>" poster="<?= img($g['image']) ?>" controls preload="none" playsinline aria-label="<?= e($g['caption']) ?>"></video>
+            <?php /* the poster is set by site.js when the video comes near the screen: browsers fetch posters at once otherwise */ ?>
+            <video src="<?= e($g['video']) ?>" data-poster="<?= img($g['image']) ?>" controls preload="none" playsinline aria-label="<?= e($g['caption']) ?>"></video>
             <span><?= e($g['caption']) ?></span>
           </li>
         <?php endforeach ?>

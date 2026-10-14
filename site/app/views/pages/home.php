@@ -16,9 +16,9 @@
       </ul>
     </div>
     <div class="hero__media">
-      <img src="<?= img('hero-master') ?>" alt="Специалист в защитном костюме с оборудованием для обработки" width="900" height="829" fetchpriority="high">
+      <img src="<?= img('hero-master') ?>"<?= img_srcset('hero-master', '(min-width: 900px) 610px, calc(100vw - 32px)') ?> alt="Специалист в защитном костюме с оборудованием для обработки" width="900" height="829" fetchpriority="high">
       <div class="hero__badge">
-        <img src="<?= img('trophy') ?>" alt="" width="48" height="64">
+        <img src="<?= img('trophy-sm') ?>" alt="" width="48" height="64">
         <span>Кубок акима: «Лучшее предприятие в сфере оказания услуг»</span>
       </div>
     </div>

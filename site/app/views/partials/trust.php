@@ -6,7 +6,7 @@
       <?php foreach (data('certificates') as $ct): ?>
         <li>
           <a href="<?= img($ct['image']) ?>" target="_blank" rel="noopener" class="cert">
-            <img src="<?= img($ct['image']) ?>" alt="<?= e($ct['name']) ?>" loading="lazy">
+            <img src="<?= img($ct['image'] . '-sm') ?>" alt="" loading="lazy"<?= img_dims($ct['image'] . '-sm') ?>>
             <span><?= e($ct['name']) ?></span>
           </a>
         </li>

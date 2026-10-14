@@ -36,7 +36,10 @@ def rewrite(html):
         path, hash_, frag = path.partition('#')
         path = path.rstrip('/') + '/'
         return '%s="%s%s%s%s"' % (attr, PREFIX, path, hash_, frag)
-    html = re.sub(r'(href|src)="(/[^"]*)"', fix, html)
+    html = re.sub(r'(href|src|data-poster)="(/[^"]*)"', fix, html)
+    # responsive pictures and the fonts of the inlined stylesheet
+    html = re.sub(r'srcset="([^"]*)"', lambda m: 'srcset="%s"' % re.sub(r'(^|, )/', r'\1' + PREFIX + '/', m.group(1)), html)
+    html = html.replace('url(/assets/', 'url(%s/assets/' % PREFIX)
     # preview copy must not compete with the real site in search engines
     return html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex, nofollow">', 1)
 

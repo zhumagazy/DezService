@@ -36,10 +36,9 @@ $problems = ['Клопы', 'Тараканы', 'Муравьи, блохи, мо
     </div>
     <div class="lead__form card">
       <h3>Или закажите звонок</h3>
-      <div class="b24">
-        <script data-b24-form="<?= e($c['b24_form']) ?>" data-skip-moving="true">
-          (function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'<?= e($c['b24_loader']) ?>');
-        </script>
+      <?php /* the form marker stays here; site.js loads the Bitrix24 script once the form comes near the screen */ ?>
+      <div class="b24" data-loader="<?= e($c['b24_loader']) ?>">
+        <script data-b24-form="<?= e($c['b24_form']) ?>" data-skip-moving="true"></script>
       </div>
       <p class="consent">Отправляя заявку, вы соглашаетесь с <a href="/politika-konfidencialnosti">политикой конфиденциальности</a> и даёте согласие на обработку персональных данных.</p>
       <p class="lead__or">или позвоните: <a href="tel:<?= e($c['phone']) ?>"><?= e($c['phone_human']) ?></a></p>

@@ -10,7 +10,7 @@
         <a class="btn btn--wa" href="<?= e(wa_link('Здравствуйте! Нужна услуга: ' . $s['menu'] . '. Сколько будет стоить?')) ?>" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
-    <img class="page-head__img" src="<?= img($s['image']) ?>" alt="<?= e($s['h1']) ?>" width="600" height="400">
+    <img class="page-head__img" src="<?= img($s['image']) ?>"<?= img_srcset($s['image'], '(min-width: 900px) 460px, calc(100vw - 32px)') ?> alt="<?= e($s['h1']) ?>" width="600" height="400" fetchpriority="high">
   </div>
 </section>
 

@@ -4,7 +4,7 @@
     <h2>Нам доверяют</h2>
     <ul class="logos">
       <?php foreach (data('clients') as $cl): ?>
-        <li><img src="<?= img($cl['image']) ?>" alt="<?= e($cl['name']) ?>" loading="lazy"></li>
+        <li><img src="<?= img($cl['image']) ?>" alt="<?= e($cl['name']) ?>" loading="lazy"<?= img_dims($cl['image']) ?>></li>
       <?php endforeach ?>
     </ul>
   </div>

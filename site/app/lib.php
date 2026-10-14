@@ -30,10 +30,40 @@ function img($name)
     return '/assets/img/' . $name . '.webp';
 }
 
+/** width="…" height="…" of a picture in assets/img, so the page does not jump while it loads */
+function img_dims($name)
+{
+    $size = @getimagesize(__DIR__ . '/../assets/img/' . $name . '.webp');
+    return $size ? ' width="' . $size[0] . '" height="' . $size[1] . '"' : '';
+}
+
+/** srcset/sizes attributes for a picture that also has a smaller copy <name>-sm.webp; '' when there is none */
+function img_srcset($name, $sizes)
+{
+    $set = [];
+    foreach ([$name . '-sm', $name] as $n) {
+        $size = @getimagesize(__DIR__ . '/../assets/img/' . $n . '.webp');
+        if ($size) $set[] = img($n) . ' ' . $size[0] . 'w';
+    }
+    return count($set) > 1 ? ' srcset="' . implode(', ', $set) . '" sizes="' . e($sizes) . '"' : '';
+}
+
 function asset($path)
 {
     $file = __DIR__ . '/../assets/' . $path;
     return '/assets/' . $path . (is_file($file) ? '?v=' . filemtime($file) : '');
+}
+
+/**
+ * site.css for a <style> tag in the page head: one request less before the first screen is drawn
+ * (PageSpeed: render-blocking resources). Comments and indentation are dropped, font paths made absolute.
+ */
+function site_css()
+{
+    $css = file_get_contents(__DIR__ . '/../assets/css/site.css');
+    $css = preg_replace('#/\*.*?\*/#s', '', $css);
+    $css = preg_replace('#\s*\n\s*#', "\n", trim($css));
+    return str_replace('url(../', 'url(/assets/', $css);
 }
 
 function abs_url($path)

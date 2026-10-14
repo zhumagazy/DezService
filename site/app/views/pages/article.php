@@ -29,7 +29,7 @@
     <?php endif ?>
     <?php $x = cfg('expert'); ?>
     <aside class="expert">
-      <img src="<?= img('logo') ?>" alt="" width="64" height="40" loading="lazy">
+      <img src="<?= img('logo-sm') ?>" alt="" width="64" height="40" loading="lazy">
       <div>
         <?php if (!empty($x['name'])): ?>
           <p class="expert__name">Автор: <?= e($x['name']) ?><?= $x['role'] ? ', ' . e($x['role']) : '' ?></p>

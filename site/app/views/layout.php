@@ -25,13 +25,29 @@ $active = function ($href) use ($path) {
 ?><!DOCTYPE html>
 <html lang="ru">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','<?= e($c['gtm']) ?>');</script>
-<!-- End Google Tag Manager -->
+<!-- Google Tag Manager and Yandex.Metrika. Events and goals are queued from the first moment;
+     the counters' own scripts (~500 KB) load on the first scroll, tap or key press, or 5 s after the
+     page has loaded, so they do not hold up the first screen (PageSpeed: Total Blocking Time). -->
+<script>
+window.dataLayer = window.dataLayer || [];
+dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+window.ym = window.ym || function () { (ym.a = ym.a || []).push(arguments); };
+ym.l = 1 * new Date();
+ym(<?= (int)$c['metrika'] ?>, 'init', {webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+(function (d) {
+  var events = ['scroll', 'pointerdown', 'touchstart', 'keydown', 'mousemove'], done = false;
+  function load() {
+    if (done) return;
+    done = true;
+    events.forEach(function (e) { removeEventListener(e, load); });
+    ['https://www.googletagmanager.com/gtm.js?id=<?= e($c['gtm']) ?>', 'https://mc.yandex.ru/metrika/tag.js'].forEach(function (u) {
+      var s = d.createElement('script'); s.async = true; s.src = u; d.head.appendChild(s);
+    });
+  }
+  events.forEach(function (e) { addEventListener(e, load, {passive: true}); });
+  addEventListener('load', function () { setTimeout(load, 5000); });
+})(document);
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title><?= e($title) ?></title>
@@ -55,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico">
 <link rel="preload" href="/assets/fonts/inter-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="<?= asset('css/site.css') ?>">
+<style><?= site_css() ?></style>
 <?php foreach ($page['schema'] ?? [] as $schema): ?>
 <script type="application/ld+json"><?= json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <?php endforeach ?>
@@ -70,7 +86,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="header">
   <div class="container header__row">
     <a class="logo" href="/" aria-label="<?= e($c['name']) ?> — на главную">
-      <img src="<?= img('logo') ?>" alt="<?= e($c['name']) ?>" width="120" height="74">
+      <img src="<?= img('logo-sm') ?>" alt="<?= e($c['name']) ?>" width="120" height="74">
     </a>
     <nav class="nav" id="nav" aria-label="Основное меню">
       <?php if ($bilingual): ?>
@@ -114,7 +130,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer class="footer">
   <div class="container footer__grid">
     <div>
-      <img src="<?= img('logo') ?>" alt="" width="120" height="74" loading="lazy">
+      <img src="<?= img('logo-sm') ?>" alt="" width="120" height="74" loading="lazy">
       <p class="footer__about">Дезинфекция, дезинсекция и дератизация в Астане с <?= (int)$c['since'] ?> года.</p>
       <?php if ($c['legal_name'] || $c['bin']): ?>
         <p class="footer__muted"><?= e($c['legal_name']) ?><?= $c['bin'] ? ', БИН ' . e($c['bin']) : '' ?></p>
@@ -164,15 +180,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="dock__btn dock__btn--wa" href="<?= e(wa_link()) ?>" target="_blank" rel="noopener">WhatsApp</a>
 </nav>
 
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
-    ym(<?= (int)$c['metrika'] ?>, 'init', {webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true}); </script>
+<!-- Yandex.Metrika counter: started in <head> -->
 <noscript><div><img src="https://mc.yandex.ru/watch/<?= (int)$c['metrika'] ?>" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 <script>window.SITE = {goals: <?= (int)$c['metrika_goals'] ?>};</script>

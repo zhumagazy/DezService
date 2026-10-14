@@ -8,6 +8,7 @@ $icons = [
 ?>
 <section class="section">
   <div class="container">
+    <h2 class="sr-only">Почему выбирают нас</h2>
     <ul class="features">
       <?php foreach (data('advantages') as $a): ?>
         <li class="feature">

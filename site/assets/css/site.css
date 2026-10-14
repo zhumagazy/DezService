@@ -14,10 +14,10 @@
   --line: #dde7ec;
   --bg: #ffffff;
   --bg-2: #f1f8fb;
-  --tint: #0089ad;          /* brand blue, 4:1 with white */
+  --tint: #007494;          /* brand blue, 5.3:1 with white (WCAG AA for text) */
   --tint-2: #00b2dc;        /* original brand blue for accents */
   --tint-soft: #e0f3ff;
-  --wa: #128c7e;
+  --wa: #0e7a6e;            /* WhatsApp green, darkened to 5.2:1 with white */
   --accent: #e06f00;
   --radius: 16px;
   --radius-sm: 12px;
@@ -45,7 +45,7 @@ p { margin: 0 0 16px; }
 .link { font-weight: 600; text-decoration: none; }
 .skip { position: absolute; left: -9999px; }
 .skip:focus { left: 16px; top: 16px; z-index: 100; background: #fff; padding: 8px 16px; border-radius: 8px; }
-:focus-visible { outline: 3px solid rgba(0, 137, 173, .45); outline-offset: 2px; border-radius: 6px; }
+:focus-visible { outline: 3px solid rgba(0, 116, 148, .45); outline-offset: 2px; border-radius: 6px; }
 
 .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 16px; }
 @media (min-width: 640px) { .container { padding: 0 24px; } }
@@ -161,7 +161,7 @@ p { margin: 0 0 16px; }
 .reviews__more { margin-top: 24px; }
 
 /* ---------- lead ---------- */
-.lead { background: linear-gradient(135deg, #0089ad, #00a6cf); color: #fff; }
+.lead { background: linear-gradient(135deg, #00627c, #007a9a); color: #fff; }
 .lead h2 { color: #fff; }
 .lead__grid { display: grid; gap: 24px; }
 @media (min-width: 900px) { .lead__grid { grid-template-columns: 1fr 1fr; align-items: start; } }
@@ -181,6 +181,10 @@ p { margin: 0 0 16px; }
 .field input { width: 100%; min-height: 48px; border-radius: var(--radius-sm); border: 0; padding: 0 16px; font: 16px var(--font); }
 .lead .btn--wa { background: #fff; color: var(--wa); }
 .b24 { min-height: 240px; }
+/* Bitrix24 form: readable button and small print (its own colours are below the 4.5:1 contrast minimum) */
+.b24 .b24-form-btn { background-color: var(--tint) !important; color: #fff !important; }
+.b24 .b24-form-field-agreement-link { color: var(--text-2) !important; }
+.b24 .b24-form-sign-abuse-link { color: var(--text-2) !important; opacity: 1 !important; }
 
 /* ---------- trust ---------- */
 .logos { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
@@ -215,7 +219,7 @@ p { margin: 0 0 16px; }
 @media (min-width: 900px) { .two-col { grid-template-columns: 1fr 1fr; align-items: start; } }
 .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 .checklist li { position: relative; padding-left: 36px; }
-.checklist li::before { content: ""; position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--tint-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230089ad' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center / 14px no-repeat; }
+.checklist li::before { content: ""; position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--tint-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007494' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center / 14px no-repeat; }
 .price-card { padding: 24px; }
 .price-card h2 { font-size: 22px; }
 .price-card h2 a { color: inherit; text-decoration: none; }
@@ -357,7 +361,7 @@ html.menu-open .dock { display: none; }
 .sku__add { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--tint-soft); color: var(--tint); font-size: 24px; font-weight: 500; text-decoration: none; line-height: 1; }
 .sku__add:hover { background: var(--tint); color: #fff; }
 .sku__add.is-in { background: var(--tint); color: #fff; font-size: 15px; font-weight: 700; }
-.tag { font-style: normal; font-size: 12px; font-weight: 600; color: var(--accent); background: #fff3e6; border-radius: 6px; padding: 1px 6px; white-space: nowrap; }
+.tag { font-style: normal; font-size: 12px; font-weight: 600; color: #a84f00; background: #fff3e6; border-radius: 6px; padding: 1px 6px; white-space: nowrap; }
 
 .cart { position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; padding: 0 12px calc(8px + env(safe-area-inset-bottom)); pointer-events: none; }
 .cart > * { pointer-events: auto; max-width: 720px; margin: 0 auto; }

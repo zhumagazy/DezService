@@ -34,7 +34,7 @@
   });
 
   // Map with our office (Yandex Maps widget: works without an API key, unlike the 2GIS JS API).
-  // Loads by itself once it is near the screen.
+  // Loads by itself once it is near the screen (whenNear and afterFirstAction below).
   function loadMap(box) {
     if (box.dataset.loaded) return;
     box.dataset.loaded = '1';
@@ -45,15 +45,42 @@
     frame.setAttribute('allowfullscreen', '');
     box.appendChild(frame);
   }
-  var maps = document.querySelectorAll('.map[data-lat]');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { loadMap(en.target); io.unobserve(en.target); } });
-    }, { rootMargin: '600px 0px' });
-    maps.forEach(function (m) { io.observe(m); });
-  } else {
-    maps.forEach(loadMap);
+  // Bitrix24 call-back form: its scripts are heavy, so they load only when the form is near
+  function loadForm(box) {
+    if (box.dataset.loaded) return;
+    box.dataset.loaded = '1';
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = box.dataset.loader + '?' + (Date.now() / 180000 | 0);
+    document.head.appendChild(s);
   }
+  function whenNear(selector, load) {
+    var boxes = document.querySelectorAll(selector);
+    if (!('IntersectionObserver' in window)) return boxes.forEach(load);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { load(en.target); io.unobserve(en.target); } });
+    }, { rootMargin: '600px 0px' });
+    boxes.forEach(function (b) { io.observe(b); });
+  }
+  // map and form are heavy (the map alone is several MB): even on the first screen they wait for the
+  // first scroll, tap or key press, or 5 s after the page has loaded — same rule as the counters in <head>
+  function afterFirstAction(fn) {
+    var events = ['scroll', 'pointerdown', 'touchstart', 'keydown', 'mousemove'], done = false;
+    function run() {
+      if (done) return;
+      done = true;
+      events.forEach(function (e) { removeEventListener(e, run); });
+      fn();
+    }
+    events.forEach(function (e) { addEventListener(e, run, { passive: true }); });
+    if (document.readyState === 'complete') setTimeout(run, 5000);
+    else addEventListener('load', function () { setTimeout(run, 5000); });
+  }
+  afterFirstAction(function () {
+    whenNear('.map[data-lat]', loadMap);
+    whenNear('.b24[data-loader]', loadForm);
+  });
+  whenNear('video[data-poster]', function (v) { v.poster = v.dataset.poster; });
 
   // Disinfectants catalog: search and an order list sent as one WhatsApp message
   var catalog = document.querySelector('.catalog[data-wa]');
