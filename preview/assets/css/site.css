@@ -124,7 +124,8 @@ p { margin: 0 0 16px; }
 .hero__facts strong { display: block; font-size: 20px; }
 .hero__facts span { font-size: 13px; color: var(--text-2); }
 .hero__media { position: relative; align-self: end; }
-.hero__media > img { margin: 0 auto; max-height: 560px; width: auto; }
+/* definite width (max 560px tall at 900:829) so the photo's box is reserved before it loads — no layout shift */
+.hero__media > img { margin: 0 auto; width: min(100%, 608px); }
 .hero__badge { position: absolute; left: 0; bottom: 24px; display: flex; align-items: center; gap: 12px; max-width: 280px; background: #fff; border-radius: var(--radius-sm); padding: 12px 16px; box-shadow: var(--shadow); font-size: 14px; font-weight: 600; }
 .hero__badge img { width: 40px; flex: none; }
 
