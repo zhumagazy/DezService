@@ -551,10 +551,16 @@ function session_start_secure()
 {
     if (session_status() === PHP_SESSION_ACTIVE) return;
     session_name('dzadmin');
-    session_set_cookie_params([
-        'lifetime' => 0, 'path' => '/admin', 'httponly' => true, 'samesite' => 'Strict',
-        'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
-    ]);
+    $secure = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    if (PHP_VERSION_ID >= 70300) {
+        session_set_cookie_params([
+            'lifetime' => 0, 'path' => '/admin', 'httponly' => true, 'samesite' => 'Strict', 'secure' => $secure,
+        ]);
+    } else {
+        // PHP < 7.3 (the hosting shares one PHP version with kazmeddez.kz's OpenCart 2):
+        // no options array, so SameSite rides along in the path attribute.
+        session_set_cookie_params(0, '/admin; samesite=Strict', '', $secure, true);
+    }
     session_start();
 }
 
