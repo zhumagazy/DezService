@@ -2,10 +2,8 @@
 
 Usage: python3 scripts/articles_batch_2026_11.py
 Writes site/app/articles/*.json and covers (1200x630 WebP) with the same look as the
-first batch. The first article goes live on 21 October 2026, the rest one every 3 days
-(scheduled: the site shows each one automatically on its date).
+first batch. All ten are dated 9–20 October 2026, so they are live as soon as the files are on the server.
 """
-import datetime
 import importlib.util
 import json
 import os
@@ -35,8 +33,10 @@ def _wrap(draw, text, font, width):
 
 batch1.wrap = _wrap
 
-START = '2026-10-21'
-GAP_DAYS = 3
+# all ten go live at once (published on request on 21 October), dated between the
+# first batch (last one 7 October) and today
+DATES = ['2026-10-09', '2026-10-10', '2026-10-12', '2026-10-13', '2026-10-14',
+         '2026-10-15', '2026-10-16', '2026-10-18', '2026-10-19', '2026-10-20']
 
 ARTICLES = [
     {
@@ -506,11 +506,9 @@ ARTICLES.sort(key=lambda a: ORDER.index(a['slug']))
 def main():
     out_dir = os.path.join(SITE, 'app/articles')
     img_dir = os.path.join(SITE, 'assets/img/blog')
-    day = datetime.date.fromisoformat(START)
     for i, a in enumerate(ARTICLES):
         cover(a, os.path.join(img_dir, a['slug'] + '.webp'))
-        when = '%s 09:00' % day.isoformat()
-        day += datetime.timedelta(days=GAP_DAYS)
+        when = '%s 09:00' % DATES[i]
         data = {
             'id': 'b202611' + str(i).zfill(2),
             'title': a['title'],
