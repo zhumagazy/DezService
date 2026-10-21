@@ -77,3 +77,7 @@ code { background: #eef1f3; padding: 1px 6px; border-radius: 4px; }
 .a-photo { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 14px; }
 .a-photo img { width: 96px; height: 96px; object-fit: contain; border: 1px solid var(--line); border-radius: 8px; background: #fff; flex: none; }
 .a-photo > div { flex: 1; }
+.ql-raw { position: relative; margin: 12px 0; padding: 28px 8px 8px; border: 1px dashed #9db4c0; border-radius: 8px; background: #f7fafb; cursor: default; }
+.ql-raw::before { content: 'Таблица — в редакторе не меняется; чтобы убрать, выделите блок и нажмите Delete'; position: absolute; top: 6px; left: 8px; font-size: 12px; color: var(--muted); }
+.ql-raw table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.ql-raw th, .ql-raw td { border: 1px solid var(--line); padding: 4px 8px; text-align: left; }

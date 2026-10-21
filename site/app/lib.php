@@ -395,6 +395,24 @@ function article_save(array $a)
     return $a;
 }
 
+/** The version of an article shipped with the site (app/articles), if there is one. */
+function article_bundled($id)
+{
+    foreach (glob(__DIR__ . '/articles/*.json') ?: [] as $path) {
+        $a = json_decode(file_get_contents($path), true);
+        if ($a && $a['id'] === $id) return $a;
+    }
+    return null;
+}
+
+/** Drop the admin's copy of a bundled article so the shipped version shows again. */
+function article_restore($id)
+{
+    if (!article_bundled($id)) return false;
+    $path = STORAGE . '/' . article_file($id);
+    return is_file($path) ? unlink($path) : false;
+}
+
 function article_delete($id)
 {
     $a = article_get($id);

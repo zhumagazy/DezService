@@ -20,6 +20,31 @@
     input.click();
   }
 
+  // Quill has no proper table support (it merges header cells), so each table becomes a
+  // read-only block that keeps its original HTML; it can be deleted but not edited here.
+  var BlockEmbed = Quill.import('blots/block/embed');
+  class RawHtml extends BlockEmbed {
+    static create(value) {
+      var node = super.create(value);
+      node.setAttribute('contenteditable', 'false');
+      node.setAttribute('data-raw', value);
+      node.innerHTML = value;
+      return node;
+    }
+    static value(node) { return node.getAttribute('data-raw'); }
+    html() { return this.domNode.getAttribute('data-raw'); }
+  }
+  RawHtml.blotName = 'rawhtml';
+  RawHtml.tagName = 'DIV';
+  RawHtml.className = 'ql-raw';
+  Quill.register(RawHtml);
+  document.querySelectorAll('#editor table').forEach(function (t) {
+    var box = document.createElement('div');
+    box.className = 'ql-raw';
+    box.setAttribute('data-raw', t.outerHTML);
+    t.replaceWith(box);
+  });
+
   var quill = new Quill('#editor', {
     theme: 'snow',
     placeholder: 'Начните писать статью…',

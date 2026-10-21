@@ -9,6 +9,7 @@
     </div>
   </div>
   <?php if (isset($_GET['saved'])): ?><p class="a-ok">Сохранено.</p><?php endif ?>
+  <?php if (isset($_GET['restored'])): ?><p class="a-ok">Возвращена исходная версия статьи.</p><?php endif ?>
   <?php foreach ($errors as $err): ?><p class="a-error"><?= e($err) ?></p><?php endforeach ?>
   <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>" id="csrf">
 
@@ -63,8 +64,18 @@
           <div class="a-serp__desc" id="serpDesc"></div>
         </div>
       </div>
+      <?php if ($a['id'] && empty($a['bundled']) && article_bundled($a['id'])): ?>
+        <div class="a-card">
+          <h2>Исходная версия</h2>
+          <p class="a-muted">Статья пришла вместе с сайтом и была изменена здесь. Можно вернуть её исходный текст, дату и оформление — ваши правки этой статьи пропадут.</p>
+          <button class="a-btn a-btn--ghost" form="restoreForm">Вернуть исходную версию</button>
+        </div>
+      <?php endif ?>
     </aside>
   </div>
+</form>
+<form id="restoreForm" method="post" action="/admin/restore" onsubmit="return confirm('Вернуть исходную версию статьи? Правки, сделанные в админке, пропадут.')">
+  <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= e($a['id']) ?>">
 </form>
 <script src="<?= asset('vendor/quill/quill.js') ?>"></script>
 <script src="<?= asset('js/admin.js') ?>"></script>

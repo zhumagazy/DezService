@@ -109,6 +109,14 @@ if ($path === '/admin/upload' && $post) {
     exit(json_encode(['url' => '/uploads/' . date('Y/m') . '/' . basename($url)]));
 }
 
+// ---------- restore a bundled article to the version shipped with the site
+if ($path === '/admin/restore' && $post) {
+    csrf_check();
+    $id = (string)($_POST['id'] ?? '');
+    article_restore($id);
+    redirect('/admin/edit?id=' . rawurlencode($id) . '&restored=1');
+}
+
 // ---------- delete
 if ($path === '/admin/delete' && $post) {
     csrf_check();
