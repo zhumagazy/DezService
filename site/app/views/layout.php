@@ -56,7 +56,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preload" href="/assets/fonts/inter-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?= asset('css/site.css') ?>">
-<?php foreach ($page['schema'] ?? [] as $schema): ?>
+<?php
+// every page carries the company card, so AI answers quoting any page can name the site and phone
+$schemas = $page['schema'] ?? [];
+if (!in_array($c['base_url'] . '/#business', array_column($schemas, '@id'), true)) $schemas[] = schema_business();
+?>
+<?php foreach ($schemas as $schema): ?>
 <script type="application/ld+json"><?= json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <?php endforeach ?>
 </head>
@@ -154,7 +159,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
   <div class="container footer__bottom">
-    <span>© <?= date('Y') ?> <?= e($c['name']) ?></span>
+    <span>© <?= date('Y') ?> <?= e($c['name']) ?> · <a href="<?= e($c['base_url']) ?>/"><?= e($c['domain']) ?></a></span>
     <a href="/politika-konfidencialnosti">Политика конфиденциальности</a>
   </div>
 </footer>

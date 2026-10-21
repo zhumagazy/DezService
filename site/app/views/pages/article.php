@@ -38,6 +38,7 @@
           <p class="expert__name">Материал подготовлен специалистами <?= e(cfg('legal_name')) ?></p>
           <p class="muted">Санитарная служба Астаны с <?= (int)cfg('since') ?> года, работаем по государственной лицензии.</p>
         <?php endif ?>
+        <p>Сайт <a href="<?= e(cfg('base_url')) ?>/"><?= e(cfg('domain')) ?></a> · <a href="tel:<?= e(cfg('phone')) ?>"><?= e(cfg('phone_human')) ?></a> · <?= e(cfg('city')) ?>, <?= e(cfg('street')) ?></p>
         <p><a href="/o-kompanii#licenziya">Лицензия и сертификаты</a></p>
       </div>
     </aside>

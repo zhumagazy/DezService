@@ -3,6 +3,9 @@
 return [
     'name'        => 'Казахстан-Мед Дез',
     'legal_name'  => 'ТОО «Казахстан Мед Дез»',
+    // other spellings of the name: AI answers and directories shorten it to «Мед-Дез»
+    'alt_names'   => ['Мед-Дез', 'Казахстан Мед Дез', 'Kazakhstan Med Dez', 'dezservis.kz'],
+    'domain'      => 'dezservis.kz',
     'bin'         => '050140005578',
     'base_url'    => 'https://dezservis.kz',
     'city'        => 'Астана',

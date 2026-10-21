@@ -158,6 +158,9 @@ if ($path === '/') {
 } elseif ($path === '/sitemap.xml') {
     header('Content-Type: application/xml; charset=utf-8');
     echo view('sitemap', ['services' => $services, 'articles' => articles_all()]);
+} elseif ($path === '/llms.txt') {
+    header('Content-Type: text/plain; charset=utf-8');
+    echo view('llms', ['services' => $services, 'articles' => articles_all()]);
 } elseif ($path === '/robots.txt') {
     header('Content-Type: text/plain; charset=utf-8');
     echo "User-agent: *\nDisallow: /admin\nDisallow: /storage/\nDisallow: /*?\n\nSitemap: " . abs_url('/sitemap.xml') . "\n";

@@ -625,8 +625,17 @@ function schema_business()
         '@type' => 'LocalBusiness',
         '@id' => $c['base_url'] . '/#business',
         'name' => $c['name'],
+        'alternateName' => $c['alt_names'],
+        'legalName' => $c['legal_name'],
+        'taxID' => $c['bin'],
+        'foundingDate' => (string)$c['since'],
         'url' => $c['base_url'] . '/',
         'telephone' => $c['phone'],
+        'email' => $c['email'],
+        'contactPoint' => [
+            '@type' => 'ContactPoint', 'telephone' => $c['phone'], 'contactType' => 'customer service',
+            'areaServed' => 'KZ', 'availableLanguage' => ['ru', 'kk'],
+        ],
         'image' => abs_url(img('logo')),
         'logo' => abs_url(img('logo')),
         'address' => [
@@ -638,7 +647,7 @@ function schema_business()
         'geo' => ['@type' => 'GeoCoordinates', 'latitude' => $c['geo']['lat'], 'longitude' => $c['geo']['lng']],
         'openingHours' => $c['hours_schema'],
         'areaServed' => $c['city'],
-        'sameAs' => array_values(array_filter([$c['gis_firm'], $c['instagram']])),
+        'sameAs' => array_values(array_filter([$c['gis_firm'], $c['instagram'], $c['telegram']])),
     ];
 }
 
