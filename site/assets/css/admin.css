@@ -1,5 +1,6 @@
 :root { --tint: #0089ad; --line: #dde3e8; --bg: #f4f6f8; --text: #0b1f2a; --muted: #5b6b75; --danger: #c62828; }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body.admin { margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: var(--text); background: var(--bg); }
 .a-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 24px; background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
 .a-brand { font-weight: 700; color: var(--text); text-decoration: none; }
